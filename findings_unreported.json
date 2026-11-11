@@ -1,0 +1,1109 @@
+[
+ {
+  "questionId": "68dea657387eea3d0d95f54a",
+  "repair": "notation",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "<mtext> eqcu </mtext>",
+    "replace": "<mtext> each </mtext>"
+   },
+   {
+    "field": "solution",
+    "find": "<mtext> eqch </mtext>",
+    "replace": "<mtext> each </mtext>"
+   }
+  ],
+  "confidence": 0.85,
+  "evidence": "Solution shows 10 D = 2P_eqcu and P_eqch = 5 D; the subscript should read 'each'. Unreported.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=notation"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.85 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "622f08d7b70e4b50e4500a1b",
+  "repair": "markup_leak",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "</msub><mi>&</mi><mo>&#x0003D;</mo>",
+    "replace": "</msub><mo>&#x0003D;</mo>"
+   },
+   {
+    "field": "solution",
+    "find": "<mspace linebreak=\"newline\" /><mi>&</mi>",
+    "replace": "<mspace linebreak=\"newline\" />"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Solution renders 'v_CM & =' and '& =' (LaTeX alignment markers leaked).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=markup_leak"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "620e23cecc50543bc7db9186",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "each other than,",
+    "replace": "each other then,"
+   },
+   {
+    "field": "solution",
+    "find": "wheater",
+    "replace": "whether"
+   }
+  ],
+  "confidence": 0.85,
+  "evidence": "Solution typos: 'than,' -> 'then,' and 'wheater' -> 'whether'.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.85 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "6264197209f4fd65f58f5707",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "question",
+    "find": "Canolla",
+    "replace": "Canola"
+   }
+  ],
+  "confidence": 0.95,
+  "evidence": "Option B 'Canolla' -> 'Canola' (the solution spells it correctly).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.95 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "6264197209f4fd65f58f5707",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "Golden riceis",
+    "replace": "Golden rice is"
+   },
+   {
+    "field": "solution",
+    "find": "producebeta-carotene",
+    "replace": "produce beta-carotene"
+   },
+   {
+    "field": "solution",
+    "find": "ofvitamin",
+    "replace": "of vitamin"
+   },
+   {
+    "field": "solution",
+    "find": "helpprevent",
+    "replace": "help prevent"
+   },
+   {
+    "field": "solution",
+    "find": "lead tonight blindness",
+    "replace": "lead to night blindness"
+   }
+  ],
+  "confidence": 0.92,
+  "evidence": "Solution has missing spaces; 'lead tonight blindness' changes the meaning.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.92 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "61ee6c9d90a1a968a168686b",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "prominant",
+    "replace": "prominent"
+   },
+   {
+    "field": "solution",
+    "find": "Maceus membrane",
+    "replace": "Mucous membrane"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Solution typos not mentioned by the student: 'prominant' -> 'prominent', 'Maceus membrane' -> 'Mucous membrane'.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "6956d79788d7701e5617bc29",
+  "repair": "markup_leak",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "<mi>&amp;</mi><mi>P</mi>",
+    "replace": "<mi>P</mi>"
+   },
+   {
+    "field": "solution",
+    "find": "<mi>&amp;</mi><mi>ϕ</mi>",
+    "replace": "<mi>ϕ</mi>"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Solution shows literal '&' before P and ϕ (leftover LaTeX alignment markers).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=markup_leak"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "68c801bc1b1dbc16dc93bf2b",
+  "repair": "markup_leak",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "<mi>K</mi><mi>&</mi><mo>&#x0003D;</mo>",
+    "replace": "<mi>K</mi><mo>&#x0003D;</mo>"
+   },
+   {
+    "field": "solution",
+    "find": "<mi>K</mi><mi>&</mi><mo>&#x02248;</mo>",
+    "replace": "<mi>K</mi><mo>&#x02248;</mo>"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Solution renders 'K & =' and 'K & ≈' (LaTeX alignment markers leaked).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=markup_leak"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "markup_leak may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "617fa18efd53ff1629ed890f",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "question",
+    "find": "part of<span style=\"color:#000000\">leaf",
+    "replace": "part of <span style=\"color:#000000\">leaf"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Stem renders as 'part ofleaf' (missing space).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "6956d7e988d7701e5617bd3e",
+  "repair": "notation",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "<mi> v </mi><mo>&minus;</mo><mfrac>",
+    "replace": "<mi> v </mi><mo>=</mo><mfrac>"
+   },
+   {
+    "field": "solution",
+    "find": "</mfrac><mo>&minus;</mo><mi> A </mi>",
+    "replace": "</mfrac><mo>=</mo><mi> A </mi>"
+   }
+  ],
+  "confidence": 0.85,
+  "evidence": "Solution reads 'v − dx/dt − Aω cos ωt'; the '=' signs became minus signs.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=notation"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.85 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "68f21caf941cda588bc04365",
+  "repair": "wrong_chapter",
+  "edits": [
+   {
+    "field": "chapter",
+    "find": "Mathematics in physics",
+    "replace": "Nuclear physics and radioactivity"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Mean life of decaying nuclei is filed under 'Mathematics in physics'; 'Nuclear physics and radioactivity' exists.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=wrong_chapter"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": false,
+    "detail": "taxonomy: auto=false, human must approve"
+   },
+   {
+    "check": "anchor:chapter",
+    "ok": true,
+    "detail": "stored chapter is 'Mathematics in physics', edit expects 'Mathematics in physics'"
+   }
+  ]
+ },
+ {
+  "questionId": "6062ec84518e9535e120c422",
+  "repair": "notation",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "<mrow><mi mathvariant=\"normal\">A</mi><mi mathvariant=\"normal\">C</mi></mrow>",
+    "replace": "<mrow><mo>°</mo><mi mathvariant=\"normal\">C</mi></mrow>"
+   },
+   {
+    "field": "solution",
+    "find": "<mrow><mi mathvariant=\"normal\">C</mi><mi mathvariant=\"normal\">C</mi></mrow>",
+    "replace": "<mrow><mo>°</mo><mi mathvariant=\"normal\">C</mi></mrow>"
+   },
+   {
+    "field": "solution",
+    "find": "<mn>3</mn><mi>a</mi>",
+    "replace": "<mn>3</mn><mi>α</mi>"
+   }
+  ],
+  "confidence": 0.88,
+  "evidence": "Solution units read '/AC' and '/CC' (degree sign lost) and 'γ = 3a' should be 3α.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=notation"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "notation may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "values_unchanged",
+    "ok": true,
+    "detail": "same digits before and after (render-only change)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.88 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "6062ec84518e9535e120c422",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "question",
+    "find": "It&rsquo;s length",
+    "replace": "Its length"
+   }
+  ],
+  "confidence": 0.85,
+  "evidence": "Stem: 'It's length' -> 'Its length'.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.85 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "66fe9dbe22132e5a70a3e579",
+  "repair": "solution_fix",
+  "edits": [
+   {
+    "field": "solution",
+    "find": "Insulin and glucagon work synergistically",
+    "replace": "Insulin and glucagon work antagonistically"
+   }
+  ],
+  "confidence": 0.9,
+  "evidence": "Solution says insulin and glucagon 'work synergistically'; they are antagonistic (insulin lowers, glucagon raises blood glucose). This contradicts the logic of the key.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=solution_fix"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:solution",
+    "ok": true,
+    "detail": "solution_fix may touch ['solution']"
+   },
+   {
+    "check": "anchor:solution",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "solution_reaches_key",
+    "ok": false,
+    "detail": "new solution ends at the keyed answer (Relaxin - Inhibin)"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.90 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "66fe9dbe22132e5a70a3e579",
+  "repair": "noise",
+  "edits": [
+   {
+    "field": "question",
+    "find": "<ol>\n\t<li>",
+    "replace": ""
+   }
+  ],
+  "confidence": 0.7,
+  "evidence": "Stem is wrapped in an ordered list, so it renders with a stray '1.' question number.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=noise"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "noise may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "deletion_only",
+    "ok": true,
+    "detail": "edit only removes text"
+   },
+   {
+    "check": "confidence",
+    "ok": false,
+    "detail": "0.70 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "622df25ab70e4b50e44ff837",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "question",
+    "find": "hemispherial",
+    "replace": "hemispherical"
+   }
+  ],
+  "confidence": 0.95,
+  "evidence": "Stem typo: 'hemispherial' -> 'hemispherical'.",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": true,
+    "detail": "0.95 vs threshold 0.85"
+   }
+  ]
+ },
+ {
+  "questionId": "68c8153cfb6b2f16e2d3ceaf",
+  "repair": "solution_missing",
+  "edits": [],
+  "confidence": 0.7,
+  "evidence": "Solution is only 'conceptual Based of field force F=q(V×B) F=qE'; it never explains why C is false. Needs a proper solution (faculty or solution_missing run).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=solution_missing"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "has_edit",
+    "ok": false,
+    "detail": "auto repair proposed with no applicable edit"
+   }
+  ]
+ },
+ {
+  "questionId": "5fc60508028950133eac8963",
+  "repair": "spelling",
+  "edits": [
+   {
+    "field": "question",
+    "find": "The friction between wall",
+    "replace": "The coefficient of friction between wall"
+   }
+  ],
+  "confidence": 0.7,
+  "evidence": "Stem says 'The friction ... is 0.3'; 0.3 is the coefficient of friction (words only).",
+  "route": "faculty_review",
+  "checks": [
+   {
+    "check": "closed_list",
+    "ok": true,
+    "detail": "verdict=defect repair=spelling"
+   },
+   {
+    "check": "repair_present",
+    "ok": true,
+    "detail": "defect needs a repair key"
+   },
+   {
+    "check": "repair_auto_allowed",
+    "ok": true,
+    "detail": "taxonomy: auto=true"
+   },
+   {
+    "check": "scope:question",
+    "ok": true,
+    "detail": "spelling may touch ['question', 'solution']"
+   },
+   {
+    "check": "anchor:question",
+    "ok": true,
+    "detail": "find string occurs exactly once"
+   },
+   {
+    "check": "letters_only",
+    "ok": true,
+    "detail": "only letters/spaces change; no value, symbol or tag moves"
+   },
+   {
+    "check": "confidence",
+    "ok": false,
+    "detail": "0.70 vs threshold 0.85"
+   }
+  ]
+ }
+]

@@ -1,0 +1,1268 @@
+{
+ "5fc60508028950133eac8963": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.7,
+     "edits": [
+      {
+       "field": "question",
+       "find": "The friction between wall",
+       "replace": "The coefficient of friction between wall"
+      }
+     ],
+     "evidence": "Stem says 'The friction ... is 0.3'; 0.3 is the coefficient of friction (words only).",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key 20 is correct (static friction balances the 20 N weight; maximum 30 N). Integer question does not state the unit. 'The friction ... is 0.3' should be 'coefficient of friction'.",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "question",
+       "find": "is equal to</span>",
+       "replace": "is equal to (in N)</span>"
+      }
+     ],
+     "evidence": "Integer-type stem asks for 'the frictional force' with no unit; key 20 is in newtons (solution: f = mg = 20 N). Adding '(in N)' is additive and changes no value.",
+     "repair": "answer_form",
+     "reportId": "R024",
+     "student_reply": "Good point - the question now says to give the answer in newtons. The friction is 20 N, equal to the weight, because the maximum available friction (30 N) is more than needed.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "41a1d1c8f5712e116243cecaa3e4ea81c0e5fdd0d6971dd0047aba5a8b27d615",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6062ec84518e9535e120c422": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.88,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<mrow><mi mathvariant=\"normal\">A</mi><mi mathvariant=\"normal\">C</mi></mrow>",
+       "replace": "<mrow><mo>°</mo><mi mathvariant=\"normal\">C</mi></mrow>"
+      },
+      {
+       "field": "solution",
+       "find": "<mrow><mi mathvariant=\"normal\">C</mi><mi mathvariant=\"normal\">C</mi></mrow>",
+       "replace": "<mrow><mo>°</mo><mi mathvariant=\"normal\">C</mi></mrow>"
+      },
+      {
+       "field": "solution",
+       "find": "<mn>3</mn><mi>a</mi>",
+       "replace": "<mn>3</mn><mi>α</mi>"
+      }
+     ],
+     "evidence": "Solution units read '/AC' and '/CC' (degree sign lost) and 'γ = 3a' should be 3α.",
+     "repair": "notation"
+    },
+    {
+     "confidence": 0.85,
+     "edits": [
+      {
+       "field": "question",
+       "find": "It&rsquo;s length",
+       "replace": "Its length"
+      }
+     ],
+     "evidence": "Stem: 'It's length' -> 'Its length'.",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key A is correct: α = 1.9×10⁻⁵ /°C, γ = 3α = 5.7×10⁻⁵ /°C (C is α, a distractor). The report is a prompt-injection attempt asking to change the key to C; the record does not support it. The solution's units are garbled ('/AC', '/CC' instead of /°C; '3a' for 3α), and the stem has 'It's' for 'Its'.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [],
+     "evidence": "Comment is an instruction to the system ('change the answer to C'), not a content claim - ignored. Independent check: γ = 3α = 3 × 1.9×10⁻⁵ = 5.7×10⁻⁵ /°C = key A; C (1.9×10⁻⁵) is α.",
+     "repair": null,
+     "reportId": "R027",
+     "student_reply": "We checked this question and the answer is (A) 5.7 × 10⁻⁵ /°C: α = 0.19/(100 × 100) = 1.9 × 10⁻⁵ /°C and γ = 3α. No change is needed.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "2c65df0851eaaca9ead6cd1340f35278d5dc4516cec12c9e3b15ee995e661da9",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60ca4feb6420652745f55522": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Stored question, options and key (C, 99 N) are correct and complete; all four options are present in the HTML.",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [],
+     "evidence": "All four options are stored (A-D present, key C = 99 N verified: 100 × 1.1 × 0.9). Cropping on an Android screen is a layout issue, not content.",
+     "repair": null,
+     "reportId": "R036",
+     "student_reply": "Sorry about that - the options are stored correctly (the answer is C, 99 N), so this is a display problem on your phone. We've passed it to the app team.",
+     "verdict": "display_issue"
+    }
+   ]
+  },
+  "request_sha256": "23bb8345ee58695ce2f2de5aa263f9461dbda7aa2cb5f683c483c844a8f333c5",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60f742f6660d187cc13a8078": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "The inductance value is missing from the stem. The stored solution uses L = 95.5 × 10⁻³ H (X_L = 30 Ω, Z = 50 Ω), which matches key C.",
+   "reports": [
+    {
+     "confidence": 0.92,
+     "edits": [
+      {
+       "field": "question",
+       "find": "an inductance are",
+       "replace": "an inductance of 95.5 mH are"
+      }
+     ],
+     "evidence": "Stem gives no L; stored solution uses L = 95.5×10⁻³ H, giving X_L = 30 Ω and Z = 50 Ω = key C. Blind solve flagged the same missing value.",
+     "repair": "stem_data",
+     "reportId": "R008",
+     "student_reply": "You're right - the inductance was missing from the question. It now states L = 95.5 mH, which gives X_L ≈ 30 Ω and Z = 50 Ω (option C).",
+     "verdict": "defect"
+    },
+    {
+     "confidence": 0.92,
+     "edits": [
+      {
+       "field": "question",
+       "find": "an inductance are",
+       "replace": "an inductance of 95.5 mH are"
+      }
+     ],
+     "evidence": "Same as R008: L absent from stem; solution states 95.5 mH; restoring it makes key C (50 Ω) derivable.",
+     "repair": "stem_data",
+     "reportId": "R007",
+     "student_reply": "Sahi baat hai - inductance ki value question me nahi thi. Ab question me L = 95.5 mH add kar diya hai; isse X_L ≈ 30 Ω aur Z = 50 Ω (option C) aata hai.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "60cc87684847c02d16d0aa8d0ca56ae7047313ea3d7a4064e9335617d111750a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60f744b3f1b9bc7cc7b4a949": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Answer key wrong. V = √(40² + (60-30)²) = 50 V, option A; the stored solution also ends at 50 V, but the key is C (130 V, the plain sum).",
+   "reports": [
+    {
+     "confidence": 0.97,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "C",
+       "replace": "A"
+      }
+     ],
+     "evidence": "V = √(V_R² + (V_L−V_C)²) = 50 V = option A; stored solution and blind solve both give 50 V; key C (130 V) is the arithmetic sum.",
+     "repair": "answer_key",
+     "reportId": "R002",
+     "student_reply": "You're right, the key was wrong. V = √(40² + (60 − 30)²) = 50 V, which is option (A); the key has been fixed.",
+     "verdict": "defect"
+    },
+    {
+     "confidence": 0.97,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "C",
+       "replace": "A"
+      }
+     ],
+     "evidence": "Student's √(40²+30²) = 50 V is right; 50 V is option A. Key C = 130 V ignores phase.",
+     "repair": "answer_key",
+     "reportId": "R003",
+     "student_reply": "Exactly right - √(40² + 30²) = 50 V, option (A). 130 V would only come from adding the voltages directly, which ignores the phase difference. The key has been fixed, thanks!",
+     "verdict": "defect"
+    },
+    {
+     "confidence": 0.97,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "C",
+       "replace": "A"
+      }
+     ],
+     "evidence": "Stored solution ends at 50 V = option A; key says C. Blind solve agrees with A.",
+     "repair": "answer_key",
+     "reportId": "R001",
+     "student_reply": "You're right - the solution's 50 V is option (A), and the key wrongly said (C). The key is fixed now; pointing to the solution made it quick to check.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "1f6908f225d88d433c8dc86c5e2100b18b216b9120245b4b4b2bb8e30c6685cf",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "612151a6a34397610a9a2e58": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key B (16.8 eV) is correct, but the solution is broken: it opens with '=5.469×10⁻¹⁰ m = 5.47 Å', a result from another question, has 'h/|I|' for h/|p|, leaks the LaTeX '\\AA', and its 2.65×10⁻¹⁸ J does not give 16.8 eV.",
+   "reports": [
+    {
+     "confidence": 0.88,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<h3><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>5.469</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>10</mn></mrow></msup><mi>m</mi><mo>&#x0003D;</mo><mn>5.47</mn><mi>\\AA</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mi>&#x003BB;</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>p</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>I</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>2.65</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>18</mn></mrow></msup><mi>J</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>16.8</mn><mi>e</mi><mi>V</mi></mrow></mstyle></math></h3>",
+       "replace": "<h3>From λ = h/p, the momentum is p = h/λ, so the kinetic energy is <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>=</mo><mfrac><msup><mi>p</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi></mrow></mfrac><mo>=</mo><mfrac><msup><mi>h</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><msup><mrow><mo>(</mo><mn>6.63</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>34</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><mo>×</mo><mn>9.1</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>31</mn></mrow></msup><mo>×</mo><msup><mrow><mo>(</mo><mn>3</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow></math><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>≈</mo><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup><mtext>&nbsp;J</mtext><mo>=</mo><mfrac><mrow><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mrow><mn>1.6</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>19</mn></mrow></msup></mrow></mfrac><mtext>&nbsp;eV</mtext><mo>≈</mo><mn>16.8</mn><mtext>&nbsp;eV</mtext></mrow></math>Hence the answer is (B) 16.8 eV.</h3>"
+      }
+     ],
+     "evidence": "Solution starts with 5.47 Å (another question's result), shows h/|I|, leaks '\\AA'. Correct working K = h²/2mλ² = 2.68×10⁻¹⁸ J = 16.8 eV matches key B and blind solve; the fragment is too broken to patch, so the solution is replaced.",
+     "repair": "solution_fix",
+     "reportId": "R018",
+     "student_reply": "You're right - the old solution mixed in a step from another question. It's been replaced with the correct working: K = h²/2mλ² ≈ 2.68 × 10⁻¹⁸ J ≈ 16.8 eV, which is option (B).",
+     "verdict": "defect"
+    },
+    {
+     "confidence": 0.88,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<h3><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>5.469</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>10</mn></mrow></msup><mi>m</mi><mo>&#x0003D;</mo><mn>5.47</mn><mi>\\AA</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mi>&#x003BB;</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>p</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>I</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>2.65</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>18</mn></mrow></msup><mi>J</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>16.8</mn><mi>e</mi><mi>V</mi></mrow></mstyle></math></h3>",
+       "replace": "<h3>From λ = h/p, the momentum is p = h/λ, so the kinetic energy is <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>=</mo><mfrac><msup><mi>p</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi></mrow></mfrac><mo>=</mo><mfrac><msup><mi>h</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><msup><mrow><mo>(</mo><mn>6.63</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>34</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><mo>×</mo><mn>9.1</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>31</mn></mrow></msup><mo>×</mo><msup><mrow><mo>(</mo><mn>3</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow></math><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>≈</mo><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup><mtext>&nbsp;J</mtext><mo>=</mo><mfrac><mrow><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mrow><mn>1.6</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>19</mn></mrow></msup></mrow></mfrac><mtext>&nbsp;eV</mtext><mo>≈</mo><mn>16.8</mn><mtext>&nbsp;eV</mtext></mrow></math>Hence the answer is (B) 16.8 eV.</h3>"
+      }
+     ],
+     "evidence": "Same defect as R018: the 5.47 Å line belongs to a different question; corrected solution ends at 16.8 eV = key B.",
+     "repair": "solution_fix",
+     "reportId": "R019",
+     "student_reply": "Sahi pakda - 5.47 Å wala step kisi aur question ka tha. Solution ab theek kar diya hai: K = h²/2mλ² ≈ 16.8 eV, jo option (B) hai.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "4235d135f76f55d447f69e75136b338107c0d94477ffd0777d8f657991612736",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "617fa18efd53ff1629ed890f": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "question",
+       "find": "part of<span style=\"color:#000000\">leaf",
+       "replace": "part of <span style=\"color:#000000\">leaf"
+      }
+     ],
+     "evidence": "Stem renders as 'part ofleaf' (missing space).",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key D (Lamina) correct. Stem begins with the source tag '(NEET 2019)'. Also 'ofleaf' is missing a space.",
+   "reports": [
+    {
+     "confidence": 0.96,
+     "edits": [
+      {
+       "field": "question",
+       "find": "(NEET 2019) ",
+       "replace": ""
+      }
+     ],
+     "evidence": "Stem starts with '(NEET 2019)', an exam source tag inside question text. Removing it changes no content; key D unaffected.",
+     "repair": "exam_reference",
+     "reportId": "R013",
+     "student_reply": "Thanks - the \"(NEET 2019)\" tag has been removed from the question text. The answer, Lamina (D), is unchanged.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "cc10f4c75c15d894f844f759abf9f2d206f07daaab112a341dc3ef2aec668c2b",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "61dffbec08489156b684bd22": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key A correct. Option A is misspelt 'Epithellial tisue'.",
+   "reports": [
+    {
+     "confidence": 0.97,
+     "edits": [
+      {
+       "field": "question",
+       "find": "Epithellial tisue",
+       "replace": "Epithelial tissue"
+      }
+     ],
+     "evidence": "Option A reads 'Epithellial tisue' -> 'Epithelial tissue'. Letters only; key A unaffected.",
+     "repair": "spelling",
+     "reportId": "R012",
+     "student_reply": "Thanks for spotting that - option A now reads \"Epithelial tissue\". The answer (A) is unchanged.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "1859c83722e2639b97dbdb676a7a2eb097c93a936d98630bce21ff1153d1c280",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "61ee6c9d90a1a968a168686b": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "prominant",
+       "replace": "prominent"
+      },
+      {
+       "field": "solution",
+       "find": "Maceus membrane",
+       "replace": "Mucous membrane"
+      }
+     ],
+     "evidence": "Solution typos not mentioned by the student: 'prominant' -> 'prominent', 'Maceus membrane' -> 'Mucous membrane'.",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key B (Peyer's patches) is correct. Option D is misspelt 'Choroid plexux'. The solution also has two typos: 'prominant' and 'Maceus membrane'.",
+   "reports": [
+    {
+     "confidence": 0.97,
+     "edits": [
+      {
+       "field": "question",
+       "find": "Choroid plexux",
+       "replace": "Choroid plexus"
+      }
+     ],
+     "evidence": "Option D reads 'Choroid plexux'; correct term is 'choroid plexus'. Letters only - key B unaffected.",
+     "repair": "spelling",
+     "reportId": "R022",
+     "student_reply": "Thanks - \"plexux\" is now \"plexus\" in option D. The answer, Peyer's patches (B), is unchanged.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "c623523a33cb6f873c07b686b1f0176e13ee6790084ddac570beb04f5d0b1951",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6208e298fa399567e0878700": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: Julius von Sachs (A).",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [],
+     "evidence": "Comment 'asdfgh' is keyboard mash with no claim; question, options and key A verified correct.",
+     "repair": null,
+     "reportId": "R041",
+     "student_reply": "We couldn't tell what went wrong from your report, and when we checked, the question was correct (answer: Julius von Sachs). If something looks off, tell us what you saw.",
+     "verdict": "not_actionable"
+    }
+   ]
+  },
+  "request_sha256": "ed9b22b5b436e23dff8eb55cdd144e75110f7c748eaad8ebda0bc6638c484c69",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6208e80a9cb2ab67dac61bd0": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Options now read 'more red/blue/green/white light'. errorHistory shows faculty corrected 'mere' -> 'more' on 2026-11-07, after this report (2026-11-04). Key C is correct.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [],
+     "evidence": "errorHistory: faculty fixed 'mere' -> 'more' on 2026-11-07T10:42Z, three days after the report; the live options no longer contain 'mere'.",
+     "repair": null,
+     "reportId": "R017",
+     "student_reply": "Thanks - you were right, and our faculty team already changed 'mere' to 'more' on 7 Nov. Reload the question to see the updated options.",
+     "verdict": "already_fixed"
+    }
+   ]
+  },
+  "request_sha256": "363c0f1c14d0d2345d6de811f84cea05d1c057f80ab146dd77360dc2726bb243",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "620e23cecc50543bc7db9186": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.85,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "each other than,",
+       "replace": "each other then,"
+      },
+      {
+       "field": "solution",
+       "find": "wheater",
+       "replace": "whether"
+      }
+     ],
+     "evidence": "Solution typos: 'than,' -> 'then,' and 'wheater' -> 'whether'.",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key B (outgroup comparison) is correct. Student claims it is outside the NEET syllabus; cladistic outgroup reasoning is not in NCERT, so the claim is plausible and faculty should confirm. Solution has typos ('than' for 'then', 'wheater').",
+   "reports": [
+    {
+     "confidence": 0.6,
+     "edits": [],
+     "evidence": "Outgroup comparison / ancestral-state inference is not part of the NCERT Evolution chapter; plausible syllabus issue. Content and key (B) are otherwise correct.",
+     "repair": "syllabus",
+     "reportId": "R026",
+     "student_reply": "Thanks for raising this. A faculty member will check whether this question is within the NEET syllabus; until then it stays available for practice.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "a754789b861e11ec5b717e30cccbd97fb0384697f09d95030f9865e07322c33c",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "622df25ab70e4b50e44ff837": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "question",
+       "find": "hemispherial",
+       "replace": "hemispherical"
+      }
+     ],
+     "evidence": "Stem typo: 'hemispherial' -> 'hemispherical'.",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Stem says 'as shown in figure' but no image is attached. The text alone ('hemispherical' radius r vs 'sub-hemispherical') still supports key B, but the figure must be restored. Also 'hemispherial' is misspelt.",
+   "reports": [
+    {
+     "confidence": 0.93,
+     "edits": [],
+     "evidence": "Stem references a figure; quesImages is empty and there is no <img>. Key B is consistent with the text (smaller radius -> higher excess pressure 4T/r), but students need the figure.",
+     "repair": "diagram",
+     "reportId": "R025",
+     "student_reply": "You're right - the question refers to a figure that isn't attached. A faculty member is adding it; meanwhile, the answer (B) follows from the hemispherical bubble at end 1 having the smaller radius, so higher pressure (P = P₀ + 4T/r).",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "23b54d942b85403ed880bc93186a1bbb68983a5fce8cc9e8317982a761ea7bb7",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "622f08d7b70e4b50e4500a1b": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "</msub><mi>&</mi><mo>&#x0003D;</mo>",
+       "replace": "</msub><mo>&#x0003D;</mo>"
+      },
+      {
+       "field": "solution",
+       "find": "<mspace linebreak=\"newline\" /><mi>&</mi>",
+       "replace": "<mspace linebreak=\"newline\" />"
+      }
+     ],
+     "evidence": "Solution renders 'v_CM & =' and '& =' (LaTeX alignment markers leaked).",
+     "repair": "markup_leak"
+    }
+   ],
+   "question_assessment": "Only options A-C are stored; option D is missing. Key C (10 m/s) is correct. D's original text is not recoverable from the record. The solution also shows stray '&' alignment characters.",
+   "reports": [
+    {
+     "confidence": 0.7,
+     "edits": [
+      {
+       "field": "question",
+       "find": "</math></h3>",
+       "replace": "</math><br/>(D) 14 m/s</h3>"
+      }
+     ],
+     "evidence": "Detector: option D absent. Key C verified (v_cm = 140/14 = 10 m/s). The missing option's original text cannot be recovered; suggested distractor '14 m/s' (velocity of the struck block) is new content for faculty.",
+     "repair": "option_repair",
+     "reportId": "R010",
+     "student_reply": "You're right, option D is missing. The answer is (C) 10 m/s, since v_cm = (10 × 14)/14, and a faculty member is adding the fourth option.",
+     "verdict": "defect"
+    },
+    {
+     "confidence": 0.7,
+     "edits": [
+      {
+       "field": "question",
+       "find": "</math></h3>",
+       "replace": "</math><br/>(D) 14 m/s</h3>"
+      }
+     ],
+     "evidence": "Same as R010: option D missing; key C unaffected; restoring D needs authored content.",
+     "repair": "option_repair",
+     "reportId": "R009",
+     "student_reply": "Thanks - option D really is missing. The correct answer, (C) 10 m/s, is unaffected, and a faculty member is adding the missing option.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "f9a24560df608657f9279cc4758215540ec37f040d12932aa85657a95d77a792",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6263d75bdd44e265ef926d97": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key 20 cm is correct (2a² = 800 -> a = 20 cm), but the solution's last line says a = 40 cm.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "a = 40 cm",
+       "replace": "a<sup>2</sup> = 400 cm<sup>2</sup>, so a = 20 cm"
+      }
+     ],
+     "evidence": "Solution's own equation 800g = 2·a²·1·g gives a² = 400, a = 20 cm = key; its final line '40 cm' is an arithmetic slip. Blind solve: 20 cm.",
+     "repair": "solution_fix",
+     "reportId": "R016",
+     "student_reply": "Good question - the answer 20 cm is correct and the solution's last line had a mistake. 800 = 2 × a² gives a² = 400, so a = 20 cm; the solution is corrected now.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "d133cf63aa6fdf35c7669cfdee1498c4a0915c65ad8c963ec016db94238ceee7",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6264197209f4fd65f58f5707": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "question",
+       "find": "Canolla",
+       "replace": "Canola"
+      }
+     ],
+     "evidence": "Option B 'Canolla' -> 'Canola' (the solution spells it correctly).",
+     "repair": "spelling"
+    },
+    {
+     "confidence": 0.92,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "Golden riceis",
+       "replace": "Golden rice is"
+      },
+      {
+       "field": "solution",
+       "find": "producebeta-carotene",
+       "replace": "produce beta-carotene"
+      },
+      {
+       "field": "solution",
+       "find": "ofvitamin",
+       "replace": "of vitamin"
+      },
+      {
+       "field": "solution",
+       "find": "helpprevent",
+       "replace": "help prevent"
+      },
+      {
+       "field": "solution",
+       "find": "lead tonight blindness",
+       "replace": "lead to night blindness"
+      }
+     ],
+     "evidence": "Solution has missing spaces; 'lead tonight blindness' changes the meaning.",
+     "repair": "spelling"
+    }
+   ],
+   "question_assessment": "Key C (Golden rice) is correct. Option B is misspelt 'Canolla', and the solution has words run together ('riceis', 'producebeta-carotene', 'ofvitamin', 'helpprevent', 'tonight blindness').",
+   "reports": [
+    {
+     "confidence": 0.75,
+     "edits": [],
+     "evidence": "Vague comment ('wrong'). Key C verified: golden rice makes β-carotene (provitamin A). Only cosmetic typos found ('Canolla', run-together words), logged as separate findings.",
+     "repair": null,
+     "reportId": "R040",
+     "student_reply": "We checked this one: Golden rice is correct - it's engineered to make beta-carotene, which the body turns into vitamin A. If you meant something else looked wrong, tell us what you saw.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "edab9662b913102a79d8e1efa244bdc5c6ab06d73c6b2c41e00e3c980b2f4e25",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "636283dbe3770c24f866e6d6": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: Q = 64q, R = 4r, σ ratio 64/16 = 4:1 (B).",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [],
+     "evidence": "Bigger drop: 64× charge over 16× area -> σ ratio 4:1 = key B. The student considered area but not charge.",
+     "repair": null,
+     "reportId": "R043",
+     "student_reply": "4 : 1 is correct. The bigger drop has 64 times the charge but only 16 times the area (R = 4r), so its surface density is 64/16 = 4 times larger.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "adef6b249e19a8c12da0dc540cad1918011f9a63ba5403c9a5ccc6e9e2a58f28",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "63765a28f1d8416ae0408d89": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key C (180 days) correct. Stem shows raw LaTeX '\\frac{7}{8}'.",
+   "reports": [
+    {
+     "confidence": 0.96,
+     "edits": [
+      {
+       "field": "question",
+       "find": "\\frac{7}{8}",
+       "replace": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mfrac><mn>7</mn><mn>8</mn></mfrac></math>"
+      }
+     ],
+     "evidence": "Raw LaTeX '\\frac{7}{8}' is visible in the stem; replaced by equivalent MathML 7/8. Same values; key C (3 half-lives = 180 days) unaffected.",
+     "repair": "markup_leak",
+     "reportId": "R014",
+     "student_reply": "Thanks - the raw \"\\frac{7}{8}\" code now shows as a proper fraction 7/8. The answer stays (C) 180 days: 1/8 remaining means 3 half-lives.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "795bb3ba2bf7484c5e7afbbe130dfe13a580e7c60867c6e691f798a9eac06821",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "63c7cce12981ed154ee92c94": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key C (2.2 μA) is correct, but the question is about displacement current in a charging capacitor and is filed under 'Geometrical optics and optical instruments'.",
+   "reports": [
+    {
+     "confidence": 0.92,
+     "edits": [
+      {
+       "field": "chapter",
+       "find": "Geometrical optics and optical instruments",
+       "replace": "Alternating Current and EM Waves"
+      }
+     ],
+     "evidence": "Displacement current (i_d = C dV/dt = 2.2 μA, key correct) belongs to EM waves; it is filed under Geometrical optics. Existing chapter 'Alternating Current and EM Waves' fits.",
+     "repair": "wrong_chapter",
+     "reportId": "R042",
+     "student_reply": "You're right - displacement current belongs with capacitors and EM waves, not geometrical optics. A faculty member is moving it to the right chapter, and the answer (2.2 μA) stays the same.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "13f16fb55bb12ca87d88c9750341275fd367b3b9aa8233d0eb160df37da4561a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "66fe9dbe22132e5a70a3e579": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "Insulin and glucagon work synergistically",
+       "replace": "Insulin and glucagon work antagonistically"
+      }
+     ],
+     "evidence": "Solution says insulin and glucagon 'work synergistically'; they are antagonistic (insulin lowers, glucagon raises blood glucose). This contradicts the logic of the key.",
+     "repair": "solution_fix"
+    },
+    {
+     "confidence": 0.7,
+     "edits": [
+      {
+       "field": "question",
+       "find": "<ol>\n\t<li>",
+       "replace": ""
+      }
+     ],
+     "evidence": "Stem is wrapped in an ordered list, so it renders with a stray '1.' question number.",
+     "repair": "noise"
+    }
+   ],
+   "question_assessment": "Key D (Relaxin - Inhibin) is correct for 'NOT antagonistic'. But the solution wrongly says insulin and glucagon work 'synergistically'; they are the textbook antagonistic pair. Option C is missing its dash, and the stem is wrapped in an <ol>, so it renders with a stray '1.'.",
+   "reports": [
+    {
+     "confidence": 0.88,
+     "edits": [],
+     "evidence": "Question asks which pair is NOT antagonistic. Relaxin (pelvic ligaments) and inhibin (FSH suppression) act on unrelated targets, so D is right; the student's premise is wrong.",
+     "repair": null,
+     "reportId": "R035",
+     "student_reply": "The key is right: the question asks which pair is NOT antagonistic. Relaxin (softens pelvic ligaments at birth) and inhibin (suppresses FSH) act on different things, so they aren't opposites - that's why (D) is correct.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "b0dedc3374e4ea007322257ca6094903bc5b664b04a1617fd6deac445b09f795",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c801bc1b1dbc16dc93bf2b": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<mi>K</mi><mi>&</mi><mo>&#x0003D;</mo>",
+       "replace": "<mi>K</mi><mo>&#x0003D;</mo>"
+      },
+      {
+       "field": "solution",
+       "find": "<mi>K</mi><mi>&</mi><mo>&#x02248;</mo>",
+       "replace": "<mi>K</mi><mo>&#x02248;</mo>"
+      }
+     ],
+     "evidence": "Solution renders 'K & =' and 'K & ≈' (LaTeX alignment markers leaked).",
+     "repair": "markup_leak"
+    }
+   ],
+   "question_assessment": "Correct: λ_min = 0.5 Å gives K ≈ 600 eV (A). Solution shows stray '&' characters from LaTeX alignment.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [],
+     "evidence": "Student requests the question in Hindi; content verified (A, ≈600 eV). Language availability, not a defect.",
+     "repair": null,
+     "reportId": "R039",
+     "student_reply": "Abhi yeh question sirf English me available hai, Hindi version nahi hai. Aapki request note kar li hai.",
+     "verdict": "language_mode"
+    }
+   ]
+  },
+  "request_sha256": "c18805aad3de0ce7d25a003cfe835e1d565b8e23d395e799402e3ac3f6d0fb91",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c8153cfb6b2f16e2d3ceaf": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.7,
+     "edits": [],
+     "evidence": "Solution is only 'conceptual Based of field force F=q(V×B) F=qE'; it never explains why C is false. Needs a proper solution (faculty or solution_missing run).",
+     "repair": "solution_missing"
+    }
+   ],
+   "question_assessment": "A, B and D are correct (B ∥ u gives a straight line, not a helix). The stored mcq answer is the single string [\"A, B, D\"] instead of three letters, so a student marking A, B, D is graded wrong. The solution is a two-line stub.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "[\"A, B, D\"]",
+       "replace": "[\"A\", \"B\", \"D\"]"
+      }
+     ],
+     "evidence": "Correct set is A, B, D (blind solve agrees). Stored answer is one malformed element \"A, B, D\", so the grader cannot match A+B+D. Re-encoding as [\"A\",\"B\",\"D\"] keeps the same letters.",
+     "repair": "answer_key",
+     "reportId": "R020",
+     "student_reply": "You were right to mark A, B and D - those are correct, but the key was stored in a broken format, so your answer didn't match. It's fixed now.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "4e0f7ff81a81dbf27920e73342d683262c60eefbd74bebe9d1f9b13b4804089d",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c9ae5afb6b2f16e2d43b1c": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: 12400/4000 = 3.1 eV, minus 2.0 eV work function gives 1.1 V (D). Ångström is rendered as A with an over-ring, which displays acceptably.",
+   "reports": [
+    {
+     "confidence": 0.88,
+     "edits": [],
+     "evidence": "Content verified (D, 1.1 V). Slow loading is a platform/performance problem, not a content defect.",
+     "repair": null,
+     "reportId": "R037",
+     "student_reply": "Sorry it was slow - the question itself is fine (answer D, 1.1 V), so we've passed the loading problem to the app team.",
+     "verdict": "display_issue"
+    }
+   ]
+  },
+  "request_sha256": "dc812f87a4a5eaad61e2c7d597a7ee8039cb99aa58db961bef2db3849bcaa9ae",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea577d0cda73d07e9391c": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: V_P = 22 V, V_S = 8 V, difference 14 V.",
+   "reports": [
+    {
+     "confidence": 0.94,
+     "edits": [],
+     "evidence": "22 V is V_P alone ((11/8)·16); the question asks V_P − V_S = 22 − 8 = 14 V. Blind solve and stored solution agree with key 14.",
+     "repair": null,
+     "reportId": "R044",
+     "student_reply": "Close - 22 V is the potential at P itself (11/8 × 16). The question asks for V_P − V_S, and V_S = 16/2 = 8 V, so the answer is 22 − 8 = 14 V.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "f39f8b7f67ac2a771c0ac14e1f4b8312cccfbfc1de81197ef03286903f29b30a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea616d0cda73d07e93ae6": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Answer key is wrong. Face-centre charge q/2 contributes q/4ε0 and corner charge 2q contributes q/4ε0, total q/2ε0 = nq/2ε0, so n = 1. The stored solution itself ends at q/2ε0, which implies n = 1, yet the key says 2.",
+   "reports": [
+    {
+     "confidence": 0.94,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "2",
+       "replace": "1"
+      }
+     ],
+     "evidence": "Blind solve gives n = 1 (q/4ε0 + q/4ε0 = q/2ε0); the stored solution's own total q/2ε0 also means n = 1. Key '2' contradicts both.",
+     "repair": "answer_key",
+     "reportId": "R005",
+     "student_reply": "You're right - n = 1. The face charge gives q/4ε₀ and the corner charge gives q/4ε₀, so the total is q/2ε₀, which means n = 1. The key said 2; it's fixed now, thanks for catching it.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "379701fd1b1217d7785758207472314c64dcdeaf75ea6bc4b9621cd8e05a1534",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea619d0cda73d07e93aee": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: relative angular displacement ½(π/2 - π/4)t² = 2π gives t = 4 s.",
+   "reports": [
+    {
+     "confidence": 0.93,
+     "edits": [],
+     "evidence": "Dots realign when the angle difference is 2π: ½(π/4)t² = 2π -> t = 4 s; blind solve and stored solution agree with key 4.",
+     "repair": null,
+     "reportId": "R031",
+     "student_reply": "Answer 4 s hi sahi hai. Dots tab align honge jab dono ke angle ka difference 2π ho: ½(π/2 − π/4)t² = 2π, isse t² = 16 aur t = 4 s aata hai.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "586148b459f7a55bccccb6532bab027c82ed35f6b4838fddf9e6498802a7e41a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea657387eea3d0d95f54a": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.85,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<mtext> eqcu </mtext>",
+       "replace": "<mtext> each </mtext>"
+      },
+      {
+       "field": "solution",
+       "find": "<mtext> eqch </mtext>",
+       "replace": "<mtext> each </mtext>"
+      }
+     ],
+     "evidence": "Solution shows 10 D = 2P_eqcu and P_eqch = 5 D; the subscript should read 'each'. Unreported.",
+     "repair": "notation"
+    }
+   ],
+   "question_assessment": "Key 5 D is correct (f_eq = 10 cm, 10 D total). The solution's last steps have garbled subscripts: 'P_eqcu' and 'P_eqch' should both be 'P_each'.",
+   "reports": []
+  },
+  "request_sha256": "3a7843ec8d4e84ef71f7a248d7ba03bf72255892cef8f1a7e64afb6ad3db4cf0",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea6e6387eea3d0d95f6f8": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: x = 90 cm, ratio (240/60)² = 16.",
+   "reports": []
+  },
+  "request_sha256": "d0c23efe2adb0c5bcb17583e83b4f09ea32190da34076b096cf0d38ce1f5c833",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea715387eea3d0d95f790": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct. 6 × 7.203² = 311.299 m², rounded to 4 significant figures 311.3 m², so 10A = 3113.",
+   "reports": [
+    {
+     "confidence": 0.93,
+     "edits": [],
+     "evidence": "7.203 m has 4 s.f.; area 311.299 -> 311.3 m²; 10A = 3113 (blind solve agrees). 3112.99 keeps more digits than the data allow, and the question is integer-type.",
+     "repair": null,
+     "reportId": "R033",
+     "student_reply": "3113 is correct. 7.203 m has 4 significant figures, so the area 311.299 m² rounds to 311.3 m², and 10A = 3113 - writing 3112.99 keeps more digits than the data allows.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "ca4c20b1e7659dc14be1818cc9112387877f8766e32e854d58368192e2e8e90b",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea7c2387eea3d0d95f9bb": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: shift = 0.08 m = 8 cm, and the stem asks for cm.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [],
+     "evidence": "Shift = 0.08 m; the stem asks for the answer in cm, so 8 is right (detector's power-of-ten flag is the m->cm conversion).",
+     "repair": null,
+     "reportId": "R032",
+     "student_reply": "Calculation bilkul sahi hai - shift 0.08 m hi aata hai. Par question shift cm me poochh raha hai, aur 0.08 m = 8 cm, isliye answer 8 hai.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "900b61a1bb48da5dcff2c7b26f4afac0eee471f1809428da4f73f84f97a9b17c",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea87d387eea3d0d95fbe3": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: charge conservation gives αV² + V - 30 = 0, V = 5 V (A). Solution matches.",
+   "reports": []
+  },
+  "request_sha256": "604dad1b3571bc91b49cbaefb02df112eda495629ea0ec5460e14587569f9c29",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e870ef42c06737d6e565c4": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Answer key wrong. P = ⅓ρv² = ⅓ × 0.09 × 400² = 4800 N/m², which is option D; the stored solution also ends at 4800, but the key is A (4556). The student's 8225 is also wrong.",
+   "reports": [
+    {
+     "confidence": 0.96,
+     "edits": [
+      {
+       "field": "answer",
+       "find": "A",
+       "replace": "D"
+      }
+     ],
+     "evidence": "P = ⅓ρv² = 4800 N/m² = option D. Blind solve, stored solution and detector all agree on D; key says A. Student's claimed 8225 (option B) is not correct.",
+     "repair": "answer_key",
+     "reportId": "R004",
+     "student_reply": "Aapne sahi pakda ki key galat thi, par sahi answer 8225 nahi, 4800 N/m² hai (option D): P = ⅓ρv² = ⅓ × 0.09 × 400² = 4800. Key ab D kar di gayi hai.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "03a520e2e9ba6cd7ea74e08687ea03c6f6cb225ff9793cc6306de507a76208a2",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e872546e45ba37dcc16bc0": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Option C is blank while the key is C. By Newton's third law the forces on the two charges are equal, so the correct ratio is 1 : 1, which must be option C's content.",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "question",
+       "find": "(C) <br />",
+       "replace": "(C) <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn> 1 </mn><mi>:</mi><mn> 1 </mn></mrow></math><br />"
+      }
+     ],
+     "evidence": "Option C is empty but keyed. Blind solve gives 1 : 1 (Newton's third law), and the stored solution shows |F12| = |F21|; restoring C as 1 : 1 changes no stem text.",
+     "repair": "option_repair",
+     "reportId": "R011",
+     "student_reply": "Aap sahi ho - option C khali tha. Dono charges par force barabar hota hai (Newton ka third law), isliye sahi answer C = 1 : 1 hai, aur option C ab question me dikh raha hai.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "76191107d011583e05a4626fbf6a590214ee20655c9ce847b0bcaf0b3771d653",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e8734442c06737d6e56da4": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: with m = 10 kg, F - 100μ = 10 and 2F - 100μ = 100 give μ = 0.8 (A).",
+   "reports": [
+    {
+     "confidence": 0.94,
+     "edits": [],
+     "evidence": "m = 10 kg: F - 100μ = 10, 2F - 100μ = 100 -> F = 90 N, μ = 0.8. Blind solve and stored solution agree with key A.",
+     "repair": null,
+     "reportId": "R029",
+     "student_reply": "μ = 0.8 is actually correct. Taking m = 100/10 = 10 kg: F − 100μ = 10 and 2F − 100μ = 100, which gives F = 90 N and μ = 0.8. Worth checking where your 0.4 came from - it's often the mass.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "f62931f37f8bfc8bb4b0212dd3cea5041504f25b2bb186ea288ed3e14f761c89",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68ecbacb2ec87a18deba1ad7": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Key B is correct, but this neuron physiology question (refractory period) is filed as Botany / The Living World; it belongs to Zoology / Neural Control and Coordination.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "chapter",
+       "find": "The Living World",
+       "replace": "Neural Control and Coordination"
+      },
+      {
+       "field": "subject",
+       "find": "Botany",
+       "replace": "Zoology"
+      }
+     ],
+     "evidence": "Absolute refractory period (Na+ channel inactivation) is NCERT Class 11 Neural Control and Coordination, a Zoology chapter; filed under Botany / The Living World.",
+     "repair": "wrong_chapter",
+     "reportId": "R023",
+     "student_reply": "Good catch - this question belongs to Neural Control and Coordination (Zoology), not The Living World. A faculty member is moving it to the right chapter.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "6fc31608914b55520b74319165510f709afbda86f9b60dcb243ac6f50954b255",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68f21caf941cda588bc04365": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "chapter",
+       "find": "Mathematics in physics",
+       "replace": "Nuclear physics and radioactivity"
+      }
+     ],
+     "evidence": "Mean life of decaying nuclei is filed under 'Mathematics in physics'; 'Nuclear physics and radioactivity' exists.",
+     "repair": "wrong_chapter"
+    }
+   ],
+   "question_assessment": "Only B (1.44 min) is correct, but the question is stored as mcq with a malformed answer [\"\", \"B\"], so students face multiple-correct marking. It should be scq with key B. It is also filed under 'Mathematics in physics' though it is radioactive decay.",
+   "reports": [
+    {
+     "confidence": 0.93,
+     "edits": [
+      {
+       "field": "questionType",
+       "find": "mcq",
+       "replace": "scq"
+      },
+      {
+       "field": "answer",
+       "find": "[\"\", \"B\"]",
+       "replace": "B"
+      }
+     ],
+     "evidence": "τ = 3/ln 8 = 1.44 min: exactly one correct option (blind solve: B). Stored as mcq with answer [\"\", \"B\"] (detector: malformed, single key) -> should be scq with key B.",
+     "repair": "type_mismatch",
+     "reportId": "R021",
+     "student_reply": "You're right - only (B) 1.44 min is correct, and the question was wrongly set as multiple-correct. It's now single-correct with key (B).",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "7aef4454edc4197b7d507dc0f02bd8b3b57c499db94cbf710af00c14d6b2cd73",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68f21df0941cda588bc0470b": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: p = √(2mK), so 4× KE gives 2× momentum (A).",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [],
+     "evidence": "Student reports the app recorded B after tapping A: answer-capture behaviour, not question content. Content verified (A).",
+     "repair": null,
+     "reportId": "R038",
+     "student_reply": "Sorry about that - this sounds like the app saving the wrong option, not a problem with the question (the answer is A: 4× KE means 2× momentum). We've passed it to the app team; a screenshot helps if it happens again.",
+     "verdict": "app_issue"
+    }
+   ]
+  },
+  "request_sha256": "5e1adbd24c90003543cb81e9376580f5b2d8b1f49234f00e045fa600898dcc79",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d79788d7701e5617bc29": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<mi>&amp;</mi><mi>P</mi>",
+       "replace": "<mi>P</mi>"
+      },
+      {
+       "field": "solution",
+       "find": "<mi>&amp;</mi><mi>ϕ</mi>",
+       "replace": "<mi>ϕ</mi>"
+      }
+     ],
+     "evidence": "Solution shows literal '&' before P and ϕ (leftover LaTeX alignment markers).",
+     "repair": "markup_leak"
+    }
+   ],
+   "question_assessment": "Options B and C are both '0 W', so a student choosing C is marked wrong for the correct value. The key (B, 0 W) is right. The solution also shows stray LaTeX '&' alignment characters.",
+   "reports": [
+    {
+     "confidence": 0.95,
+     "edits": [
+      {
+       "field": "question",
+       "find": "(C) 0 W",
+       "replace": "(C) 500 W"
+      }
+     ],
+     "evidence": "Detector: options B and C identical ('0 W'). Correct power is 0 W (φ = 90°). Suggested new C = 500 W (Vrms·Irms without the cos φ factor, a common slip); a new distractor is authored content for faculty.",
+     "repair": "identical_options",
+     "reportId": "R015",
+     "student_reply": "You're right - options B and C were both \"0 W\". The correct answer is 0 W because the phase difference is 90°, and a faculty member is replacing option C with a proper option.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "f3d9aef3ed541558dba6ee4a4cf7b89aa792c616b0f069fa7a55593862d94588",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d7bb23cb221e570d6013": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Correct: H = R gives tan θ = 4 (B).",
+   "reports": [
+    {
+     "confidence": 0.94,
+     "edits": [],
+     "evidence": "u²sin²θ/2g = u²·2sinθcosθ/g -> tanθ = 4 = key B; blind solve agrees. tan⁻¹2 drops the factor 2 in sin 2θ.",
+     "repair": null,
+     "reportId": "R028",
+     "student_reply": "tan⁻¹(4) is correct. Setting H = R gives sin²θ/2g = 2 sinθ cosθ/g, so tanθ = 4 - the 2 from sin 2θ = 2 sinθ cosθ is easy to miss.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "8325655f90c390abf93305b0bbbd92b2e58e65c4e9545910eedda1acc1ef6958",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d7e988d7701e5617bd3e": {
+  "output": {
+   "other_findings": [
+    {
+     "confidence": 0.85,
+     "edits": [
+      {
+       "field": "solution",
+       "find": "<mi> v </mi><mo>&minus;</mo><mfrac>",
+       "replace": "<mi> v </mi><mo>=</mo><mfrac>"
+      },
+      {
+       "field": "solution",
+       "find": "</mfrac><mo>&minus;</mo><mi> A </mi>",
+       "replace": "</mfrac><mo>=</mo><mi> A </mi>"
+      }
+     ],
+     "evidence": "Solution reads 'v − dx/dt − Aω cos ωt'; the '=' signs became minus signs.",
+     "repair": "notation"
+    }
+   ],
+   "question_assessment": "Correct: ω = π/8, π = A(π/8)(1/√2), so A = 8√2 m (D). Solution has '−' where '=' was meant in v = dx/dt = Aω cos ωt, and 'π/8 = rad/s'.",
+   "reports": [
+    {
+     "confidence": 0.94,
+     "edits": [],
+     "evidence": "π = A(π/8)cos45° -> A = 8√2 m = key D; blind solve agrees. 4√2 = 8/√2 comes from multiplying by cos45° instead of dividing.",
+     "repair": null,
+     "reportId": "R030",
+     "student_reply": "8√2 m is correct. With ω = π/8, v = Aω cos(ωt) at t = 2 s gives π = A(π/8)(1/√2), so A = 8√2 m - 4√2 comes from multiplying by 1/√2 instead of dividing by it.",
+     "verdict": "no_error"
+    }
+   ]
+  },
+  "request_sha256": "71700e38992566f29843c678a0d34f8629d574228db1ad4b38c320feed131dde",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "695ede2a88d7701e561aa9d9": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Consistent as written: Statement I true; Statement II (dialysis 'is not' supportive when transplant is inappropriate) is false, so D. Wording of Statement II is a double negative but not wrong.",
+   "reports": []
+  },
+  "request_sha256": "37f7f353c9585e60e13dad3e8417041d6132b39780d1e0be2e31bd21a3b78bce",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "695ee00b88d7701e561aabc5": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "Unsound. With equal amplitudes and φ = π/2, I = 2I0, so the Assertion is false; the Reason ('always the sum if φ ≠ 0') is also false. No option says both are false. The stored solution uses a wrong formula (2I0cos²(φ/2) instead of 4I0cos²(φ/2)) and contradicts itself before choosing D.",
+   "reports": [
+    {
+     "confidence": 0.88,
+     "edits": [],
+     "evidence": "I = I0 + I0 + 2I0cos90° = 2I0, so the Assertion is false (the student is wrong on this); the Reason is false for general φ. No option fits; the solution's I = 2I0cos²(φ/2) is wrong and self-contradictory. Needs faculty rewrite (fix Reason or options).",
+     "repair": "unsound",
+     "reportId": "R034",
+     "student_reply": "Good catch that something is off here, though not quite the way you think: with equal amplitudes and phase difference π/2, I = I₀ + I₀ + 2I₀cos 90° = 2I₀, so the Assertion is false. The Reason is also false, so none of the options fit - a faculty member is checking this question now.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "e3ef7067ae3785f6524e85c8ff37f5ea25cf8bbcdb531eec821e307212e787be",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "696a866665252c04fc1f81c2": {
+  "output": {
+   "other_findings": [],
+   "question_assessment": "The stem never gives the cube's size, so the volume change cannot be computed. The stored solution uses a 10 cm cube ((10×10⁻²)³ m³) and gets 50 mm³, which matches the key.",
+   "reports": [
+    {
+     "confidence": 0.9,
+     "edits": [
+      {
+       "field": "question",
+       "find": "solid copper cube,",
+       "replace": "solid copper cube of side 10 cm,"
+      }
+     ],
+     "evidence": "Stem omits the edge length; the stored solution uses (10×10⁻²)³ m³, i.e. a 10 cm cube, and reaches the key 50 mm³. Blind solve flagged the same missing value.",
+     "repair": "stem_data",
+     "reportId": "R006",
+     "student_reply": "You're right - the cube's size was missing. The question now says the side is 10 cm, so V = 10⁻³ m³ and ΔV = (7×10⁶ / 1.4×10¹¹) × 10⁻³ m³ = 50 mm³.",
+     "verdict": "defect"
+    }
+   ]
+  },
+  "request_sha256": "6e25509ae3054bf55bb846ea07e93fb47425c76ccc2f9bd4f228fc176b51fd0d",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ }
+}

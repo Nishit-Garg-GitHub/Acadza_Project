@@ -1,0 +1,2 @@
+# Only needed for live runs (python -m engine.run --live). Replay mode and the console use the standard library only.
+anthropic>=1.0

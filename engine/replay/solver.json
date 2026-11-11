@@ -1,0 +1,648 @@
+{
+ "5fc60508028950133eac8963": {
+  "output": {
+   "answer": "20",
+   "assumptions": "g = 10 m/s^2; answer in newtons (unit not stated)",
+   "confidence": 0.85,
+   "final_value": "20 N",
+   "issues": [
+    "ambiguous_wording"
+   ],
+   "missing_data": "",
+   "working": "f_max = μN = 0.3 × 100 = 30 N > mg = 20 N, so the body stays at rest and static friction = 20 N."
+  },
+  "request_sha256": "7d148360ea59a2b227e0c666e260678f4e8c2f6cd916ce1d96ee7ff3fe64993a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6062ec84518e9535e120c422": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "5.7 × 10^-5 /°C",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "α = ΔL/(L0Δθ) = 0.19/(100 × 100) = 1.9e-5 /°C; γ = 3α = 5.7e-5 /°C."
+  },
+  "request_sha256": "73a407a35070d43315ae86e6258381cc49f41c06a0664ea77f8eb369ce0469cb",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60ca4feb6420652745f55522": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.98,
+   "final_value": "99 N",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "F ∝ q1q2, so F' = 100 × 1.1 × 0.9 = 99 N."
+  },
+  "request_sha256": "fe7fece34af83e59df4722c52d83fc63c3b6fb017b3fefd31136e32fa58d5075",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60f742f6660d187cc13a8078": {
+  "output": {
+   "answer": "C",
+   "assumptions": "L = 95.5 mH (standard textbook version)",
+   "confidence": 0.6,
+   "final_value": "50 ohm",
+   "issues": [
+    "insufficient_data"
+   ],
+   "missing_data": "value of the inductance",
+   "working": "Inductance not given. With the standard L = 95.5 mH: X_L = 2π·50·0.0955 = 30 Ω, Z = √(40^2+30^2) = 50 Ω."
+  },
+  "request_sha256": "45b882b6584c9d94bdf186dd9d5ad77d9185265ee0b36007deff7ad15f914286",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "60f744b3f1b9bc7cc7b4a949": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.98,
+   "final_value": "50 V",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "V = √(V_R^2 + (V_L - V_C)^2) = √(40^2 + 30^2) = 50 V."
+  },
+  "request_sha256": "e192c8691d93f03a150f8a21c68990f52e634f156decd59d776c7cb74c4430e6",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "612151a6a34397610a9a2e58": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "16.8 eV",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "K = h^2/(2mλ^2) = (6.63e-34)^2 / (2 × 9.1e-31 × (3e-10)^2) = 2.68e-18 J = 16.8 eV."
+  },
+  "request_sha256": "77e4f1f0e0e22ddfe31b6cb4d979ab2d79a2dbd75e5a8deba0c1b975e4dbcecd",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "617fa18efd53ff1629ed890f": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.97,
+   "final_value": "Lamina",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "The green expanded part with veins and veinlets is the lamina."
+  },
+  "request_sha256": "c8c57e0ac2a93519772775102e376d25f0ee66993ca39f7deec01010b90b0a83",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "61dffbec08489156b684bd22": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.97,
+   "final_value": "Epithelial tissue",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "The intestinal lining is columnar epithelium."
+  },
+  "request_sha256": "6aea2ef3a67e627b838e711fe523d86661c704b117cfdad41386ef485accca19",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "61ee6c9d90a1a968a168686b": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.97,
+   "final_value": "Peyer's patches",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Lymphoid aggregates of the ileum (distal small intestine) are Peyer's patches."
+  },
+  "request_sha256": "c8e411b32034b3d8b16e91a6a7c89fceb9e02dc406b21393cd0e62b131730a11",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6208e298fa399567e0878700": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "Julius von Sachs",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Sachs showed glucose is produced (stored as starch) in green parts of growing plants."
+  },
+  "request_sha256": "0f0d5fb91c48e92b45b63f4a2cc7a1e9110d6f828a2644e7b772542de8da2694",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6208e80a9cb2ab67dac61bd0": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "more green light",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Canopy leaves absorb red and blue; understorey plants receive mostly transmitted green light, which is least effective for photosynthesis."
+  },
+  "request_sha256": "2de7963a1c1182a635b49d526a158c06a2033cb41324bdd7388b84ea989d3875",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "620e23cecc50543bc7db9186": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.9,
+   "final_value": "Compare with an outgroup",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Ancestral state is inferred by outgroup comparison: examine a more distantly related snake."
+  },
+  "request_sha256": "bc7df9995ec4d608174f1b98d3a91810da751c1a7dec76fe362df9290054cfd4",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "622df25ab70e4b50e44ff837": {
+  "output": {
+   "answer": "B",
+   "assumptions": "used the text 'hemispherical' vs 'sub-hemispherical' in place of the figure",
+   "confidence": 0.75,
+   "final_value": "air flows 1 -> 2; bubble 1 shrinks",
+   "issues": [
+    "needs_figure"
+   ],
+   "missing_data": "the figure referred to in the stem",
+   "working": "Excess pressure = 4T/R. Bubble 1 is hemispherical (R = r, the smallest possible) so it has the highest pressure; sub-hemispherical bubble 2 has R > r. Air flows from 1 to 2 and bubble 1 loses volume."
+  },
+  "request_sha256": "7dae66f094d812cbd889341169ab88f4412bd8235e3f6be80f890d8a1e57a6e0",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "622f08d7b70e4b50e4500a1b": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "10 m/s",
+   "issues": [
+    "options_missing_or_blank"
+   ],
+   "missing_data": "",
+   "working": "v_cm = (10·14 + 4·0)/(10 + 4) = 10 m/s. Only three options are present."
+  },
+  "request_sha256": "d9185d301e42752d654359c76c3868be8fdf121a54ee487e5b34d547724c9616",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6263d75bdd44e265ef926d97": {
+  "output": {
+   "answer": "20",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "20 cm",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Removing 800 g raises the cube by 2 cm: 2·a^2·1 g/cm^3 = 800 g -> a^2 = 400 -> a = 20 cm."
+  },
+  "request_sha256": "1d84e6eaaa06691237a1af7f1546d5428ac01c78b0c0e36c6c949ebba5b90cc0",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6264197209f4fd65f58f5707": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.97,
+   "final_value": "Golden rice",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Golden rice is engineered to make β-carotene (provitamin A)."
+  },
+  "request_sha256": "b1a4046951dfc6b321628b3afdee0bac59f48842bebe42fd15fa41d04b537dd1",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "636283dbe3770c24f866e6d6": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "4 : 1",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "R = 4r, Q = 64q -> σ_big/σ_small = (Q/R^2)/(q/r^2) = 64/16 = 4."
+  },
+  "request_sha256": "4e52c92df3d0859c13eb2318a011987bf0231657a58eb2f4d9c541944d7c1d53",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "63765a28f1d8416ae0408d89": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.98,
+   "final_value": "180 days",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "7/8 decayed -> 1/8 left = (1/2)^3 -> 3 half-lives = 180 days."
+  },
+  "request_sha256": "b75d7ab28c1501538fb73a4ce885f7005653407732e080d6ba0e547ea2eafd2e",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "63c7cce12981ed154ee92c94": {
+  "output": {
+   "answer": "C",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "2.2 μA",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "C = Kε0A/d = 10 × 8.85e-12 × 1 / 1e-3 = 8.85e-8 F; i_d = C·dV/dt = 8.85e-8 × 25 = 2.21e-6 A."
+  },
+  "request_sha256": "5b3bc596cacebf8bd4ee751e40dc6abc7d7366d01ab4ab2eb878c620caeb5ee2",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "66fe9dbe22132e5a70a3e579": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.9,
+   "final_value": "Relaxin - Inhibin",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "PTH/calcitonin (blood Ca2+), insulin/glucagon (blood glucose) and aldosterone/ANF (Na+ retention) are antagonistic pairs; relaxin (softens pelvic ligaments) and inhibin (suppresses FSH) act on unrelated targets."
+  },
+  "request_sha256": "42e5a7ef6c2d3e735b2df3e646f3f50a9a967d72e7bc4d32ccc93a0b78510dfb",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c801bc1b1dbc16dc93bf2b": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.92,
+   "final_value": "≈ 600 eV",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "λ_min = 12400/24800 Å = 0.5 Å; electron K = 150.4/λ^2 eV = 150.4/0.25 ≈ 600 eV."
+  },
+  "request_sha256": "344c6110b3b91ea74a11addae2a3b9303a6619d288a13d83ff058840857fcdeb",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c8153cfb6b2f16e2d3ceaf": {
+  "output": {
+   "answer": "A,B,D",
+   "assumptions": "",
+   "confidence": 0.94,
+   "final_value": "A, B, D",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "E ∥ u: straight line. E ⊥ u: parabola. B ∥ u: no magnetic force, straight line (not a helix). B ⊥ u: circle in a plane normal to B."
+  },
+  "request_sha256": "57242f7bdf3e09bb1fd4aca4f6ad23fdc96a334598376de79993c375230022d7",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68c9ae5afb6b2f16e2d43b1c": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.97,
+   "final_value": "1.1 V",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "E = 12400/4000 eV = 3.1 eV; eV0 = 3.1 - 2.0 = 1.1 eV -> V0 = 1.1 V."
+  },
+  "request_sha256": "1f01298b44241d8cb06a2cc072fd61e6b68db4605115f6394cd7e8f6914ed1e8",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea577d0cda73d07e9391c": {
+  "output": {
+   "answer": "14",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "14 V",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "V_surface - V_∞ = kQ/R = 16 V. V_P = (kQ/2R^3)(3R^2 - R^2/4) = (11/8)·16 = 22 V; V_S = kQ/2R = 8 V; V_P - V_S = 14 V."
+  },
+  "request_sha256": "0617afe14ab04e18d5d564fa821a00365fa9a65ec8f0dd0ba6bef25597ea4d84",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea616d0cda73d07e93ae6": {
+  "output": {
+   "answer": "1",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "n = 1",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Charge at a face centre: half its flux passes through the cube -> (q/2)/(2ε0) = q/4ε0. Charge at a corner: 1/8 of its flux -> 2q/(8ε0) = q/4ε0. Total = q/2ε0 = nq/2ε0 -> n = 1."
+  },
+  "request_sha256": "18289d0ce207db495695d64d8df4b49906602b8470a1997a76aa097e108ca16f",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea619d0cda73d07e93aee": {
+  "output": {
+   "answer": "4",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "4 s",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Aligned again when the angle difference is 2π: ½(π/2 - π/4)t^2 = 2π -> t^2 = 16 -> t = 4 s."
+  },
+  "request_sha256": "d6aa3291221fb565a1ffe4b67c2363184fd5c77421f2bd9bce9eda9b8c5fa11f",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea657387eea3d0d95f54a": {
+  "output": {
+   "answer": "5",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "5 D each",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "u = -12.5 cm, real image m = -4 -> v = +50 cm; 1/f = 1/50 + 1/12.5 = 1/10 -> f = 10 cm, P = 10 D for the pair, 5 D each."
+  },
+  "request_sha256": "2e05e01d821386d220e34b8eb242c0b2cef439765680c54108f6351d131daafc",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea6e6387eea3d0d95f6f8": {
+  "output": {
+   "answer": "16",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "16",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "x = √(D(D-4f)) = √(150 × 54) = 90 cm; size ratio = ((D+x)/(D-x))^2 = (240/60)^2 = 16."
+  },
+  "request_sha256": "18939a04008558ceb09217912f4d15e5ae141b801c8491bf94ecc947a4bf7477",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea715387eea3d0d95f790": {
+  "output": {
+   "answer": "3113",
+   "assumptions": "",
+   "confidence": 0.92,
+   "final_value": "A = 311.3 m^2, 10A = 3113",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "A = 6 × 7.203^2 = 311.299 m^2; 7.203 has 4 s.f. -> 311.3 m^2; 10A = 3113."
+  },
+  "request_sha256": "87aa7ee6905682874a9f434d3449f8a0a6b0a556c48fe5a2819068c4209dba44",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea7c2387eea3d0d95f9bb": {
+  "output": {
+   "answer": "8",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "8 cm",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Shift = (D/d)[t1(μ1-1) - t2(μ2-1)] = (1/5e-3)(1.0e-3 - 0.6e-3) = 0.08 m = 8 cm."
+  },
+  "request_sha256": "ba3397ec952928368e042300804e57cb01229a8d822b93621c269e132437f605",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68dea87d387eea3d0d95fbe3": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.88,
+   "final_value": "5 V",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Charge conservation: K(V)·C·V + C·V = C·V0 with K = αV -> V^2 + V - 30 = 0 -> V = 5 V."
+  },
+  "request_sha256": "8fd5e8cc11e863549cef58a452b64348ba411ecd2924ac80502564712ae3ba8f",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e870ef42c06737d6e565c4": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.98,
+   "final_value": "4800 N/m^2",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "P = ⅓ρv_rms^2 = ⅓ × 0.09 × 400^2 = 4800 N/m^2."
+  },
+  "request_sha256": "2f5d95041bbcd43f23ab7cd25e7dbf070bd387825a0f6e7dc130587ec5136be6",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e872546e45ba37dcc16bc0": {
+  "output": {
+   "answer": "",
+   "assumptions": "",
+   "confidence": 0.9,
+   "final_value": "1 : 1",
+   "issues": [
+    "no_option_matches",
+    "options_missing_or_blank"
+   ],
+   "missing_data": "",
+   "working": "Newton's third law: the forces on the two charges are equal and opposite, so the ratio is 1:1. Option (C) is blank and no visible option equals 1:1."
+  },
+  "request_sha256": "959646a1ebfa6d527d7b3737d5c0389c09db4bb9a10f0f7b1728c91ded7aadba",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68e8734442c06737d6e56da4": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "μ = 0.8",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "m = 10 kg. F - 100μ = 10·1; 2F - 100μ = 10·10 -> F = 90 N, μ = 0.8."
+  },
+  "request_sha256": "2171a23d82086ff324a921b7726106655587113715ee3eeb7960842198723d07",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68ecbacb2ec87a18deba1ad7": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "Na+ channel inactivation",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Absolute refractory period is due to inactivated voltage-gated Na+ channels."
+  },
+  "request_sha256": "eb321c3251a583bcaf625c78d7776404dc96a309a0b3b4d609159ce4529a5439",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68f21caf941cda588bc04365": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "τ ≈ 1.44 min",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "N/N0 = 1/8 -> t/τ = ln 8 = 2.079 -> τ = 3/2.079 = 1.44 min. Only (B) is correct."
+  },
+  "request_sha256": "30cdd8e7ce0b1163bc454cb07174ef47a881a834ce811dba890b6135207eab35",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "68f21df0941cda588bc0470b": {
+  "output": {
+   "answer": "A",
+   "assumptions": "",
+   "confidence": 0.98,
+   "final_value": "p doubles",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "p = √(2mK); K × 4 -> p × 2."
+  },
+  "request_sha256": "ccff73c973e040d109c93d5b8b501c3cf3f4b8d76c21ee1d49fcedb2fc076e9a",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d79788d7701e5617bc29": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.6,
+   "final_value": "0 W",
+   "issues": [
+    "multiple_options_correct"
+   ],
+   "missing_data": "",
+   "working": "φ = 90° between i and e -> P = Vrms·Irms·cos90° = 0. Options (B) and (C) are both '0 W'."
+  },
+  "request_sha256": "2ea18f4c8574630fc2daaeccde59de63f9ae7be992a6d2ad2129d0e1f67eed6e",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d7bb23cb221e570d6013": {
+  "output": {
+   "answer": "B",
+   "assumptions": "",
+   "confidence": 0.96,
+   "final_value": "tan^-1(4)",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "H = R: u^2 sin^2θ/2g = u^2 · 2sinθcosθ/g -> tanθ = 4."
+  },
+  "request_sha256": "8844c7a9c67189a4bf4f8d29555d13772a40ef2e543a0a91f2c2d2c353b37d22",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "6956d7e988d7701e5617bd3e": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.95,
+   "final_value": "8√2 m",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "ω = 2π/16 = π/8; x = A sin ωt, v = Aω cos ωt; at t = 2 s: π = A(π/8)cos(π/4) -> A = 8√2 m."
+  },
+  "request_sha256": "65342d87ed48cfce32083855a15b8307b27a0c130af3875f6c4298d806e10396",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "695ede2a88d7701e561aa9d9": {
+  "output": {
+   "answer": "D",
+   "assumptions": "",
+   "confidence": 0.8,
+   "final_value": "Statement-I correct, Statement-II incorrect",
+   "issues": [
+    "none"
+   ],
+   "missing_data": "",
+   "working": "Dialysis bridges patients to transplant (I true). For patients unsuitable for transplant, dialysis IS the long-term supportive therapy, so 'is not a supportive measure' is false."
+  },
+  "request_sha256": "fb8dfdf7d26a836286eb8b52cf7ae57f35e7abf9d5b23f6b0a8a10433350ae88",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "695ee00b88d7701e561aabc5": {
+  "output": {
+   "answer": "",
+   "assumptions": "",
+   "confidence": 0.9,
+   "final_value": "Assertion false, Reason false",
+   "issues": [
+    "no_option_matches"
+   ],
+   "missing_data": "",
+   "working": "Equal amplitudes, φ = π/2: I = I0 + I0 + 2I0cos90° = 2I0 ≠ I0, so A is false. R is false: intensities simply add only when cos φ = 0 (or for incoherent sources), not for every non-zero φ. No option says both are false."
+  },
+  "request_sha256": "e20767d29520895357494cbc8cc16a35079e9e358e5ec7e7d939e61011147848",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ },
+ "696a866665252c04fc1f81c2": {
+  "output": {
+   "answer": "50",
+   "assumptions": "edge length 10 cm (the standard textbook version of this problem)",
+   "confidence": 0.55,
+   "final_value": "50 mm^3",
+   "issues": [
+    "insufficient_data"
+   ],
+   "missing_data": "edge length / volume of the cube",
+   "working": "ΔV = (ΔP/B)·V = (7e6/1.4e11)·V = 5e-5·V. Side not given; with a 10 cm cube V = 1e-3 m^3 -> ΔV = 5e-8 m^3 = 50 mm^3."
+  },
+  "request_sha256": "eacfa3cc9e5bb6e75063766f6b994970fd412f430720bf07f97092add8d69759",
+  "source": "offline: claude-opus-5-5 via Claude Code session, production prompts, no API key at build time"
+ }
+}
