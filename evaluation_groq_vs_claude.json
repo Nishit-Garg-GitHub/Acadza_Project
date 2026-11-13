@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "status": "not_run",
+  "baseline": {
+    "file": "results.json",
+    "model": "claude-opus-5-5",
+    "execution": "replay",
+    "description": "Original Claude response recordings; not verified ground truth or live API output."
+  },
+  "groq": {
+    "file": "results_groq.json",
+    "present": false,
+    "provider": "groq",
+    "model": null,
+    "execution": null,
+    "reports": 0
+  },
+  "ground_truth": {
+    "file": null,
+    "verified_labels": 0,
+    "note": "Claude agreement is reported separately and is not scored as ground-truth correctness."
+  },
+  "quality_metrics": {
+    "classification_accuracy": {
+      "value": null,
+      "n": 0,
+      "reason": "verified verdict labels unavailable"
+    },
+    "answer_key_accuracy": {
+      "value": null,
+      "n": 0,
+      "reason": "verified answer labels unavailable"
+    },
+    "repair_correctness": {
+      "value": null,
+      "n": 0,
+      "reason": "verified repair labels unavailable"
+    },
+    "false_positive_rate": {
+      "value": null,
+      "n": 0,
+      "reason": "verified non-defect labels unavailable"
+    },
+    "false_negative_rate": {
+      "value": null,
+      "n": 0,
+      "reason": "verified defect labels unavailable"
+    },
+    "auto_apply_precision": {
+      "value": null,
+      "n": 0,
+      "reason": "verified auto-apply outcomes unavailable"
+    }
+  },
+  "model_agreement": {
+    "shared_reports": 0,
+    "verdict": {
+      "agreement": null,
+      "matches": 0,
+      "compared": 0
+    },
+    "repair": {
+      "agreement": null,
+      "matches": 0,
+      "compared": 0
+    },
+    "route": {
+      "agreement": null,
+      "matches": 0,
+      "compared": 0
+    },
+    "answer_edit": {
+      "agreement": null,
+      "matches": 0,
+      "compared": 0
+    }
+  },
+  "operational_metrics": {
+    "reports_processed": 0,
+    "faculty_review_rate": null,
+    "no_change_rate": null,
+    "auto_apply_rate": null,
+    "api_failures": 0,
+    "input_tokens": null,
+    "output_tokens": null,
+    "estimated_cost_usd": null,
+    "average_latency_ms": null,
+    "live_api_responses": 0
+  },
+  "limitations": [
+    "Accuracy, false-positive/negative rates, repair correctness, and auto-apply precision require independently verified labels.",
+    "The original replay outputs are a comparison baseline, not truth labels.",
+    "Estimated cost remains null unless verified per-million-token prices are configured."
+  ]
+}

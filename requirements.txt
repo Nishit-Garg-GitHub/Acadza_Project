@@ -1,2 +1,6 @@
-# Only needed for live runs (python -m engine.run --live). Replay mode and the console use the standard library only.
+# Runtime dependencies for live inference and the optional FastAPI review service.
 anthropic>=1.0
+groq>=0.13
+python-dotenv>=1.0
+fastapi>=0.115
+uvicorn[standard]>=0.30

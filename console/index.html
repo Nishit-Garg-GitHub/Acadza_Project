@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Acadza Fix Queue</title>
 <meta name="description" content="Faculty review console for student error reports on JEE/NEET questions.">
+<meta name="api-base" content="http://127.0.0.1:8000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b5bdb'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +17,16 @@
   <button class="icon-btn only-narrow" id="queueToggle" aria-label="Show queue">
     <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
-  <div class="brand"><span class="logo">✓</span><span>Fix Queue</span></div>
+  <div class="brand"><span class="logo">✓</span><span>Acadza</span><span class="brand-sub">Review queue</span></div>
   <div class="summary" id="summary"></div>
   <div class="top-right">
+    <button class="btn ghost" id="backendBtn">Backend <span class="count" id="backendCount">offline</span></button>
+    <span class="ai-badge" id="aiBadge" role="status">AI status unavailable</span>
     <label class="reviewer" title="Recorded in the audit log">
       <span>Reviewing as</span>
       <input id="reviewer" maxlength="40" spellcheck="false">
     </label>
-    <button class="btn ghost" id="auditBtn">Audit log <span class="count" id="auditCount">0</span></button>
+    <button class="btn ghost" id="auditBtn">Browser audit <span class="count" id="auditCount">0</span></button>
     <button class="icon-btn" id="helpBtn" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">?</button>
     <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light/dark">
       <svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
@@ -54,8 +57,33 @@
       <button class="icon-btn" id="auditClose" aria-label="Close">✕</button>
     </div>
   </div>
-  <p class="drawer-note">Append-only. Stored in this browser for the demo; production writes each entry to the audit table with the reviewer's login.</p>
+  <p class="drawer-note">This static queue's actions are stored only in this browser. Backend inbox decisions are persisted by the API.</p>
   <ol id="auditList" class="audit-list"></ol>
+</div>
+
+<div class="drawer backend-drawer" id="backendDrawer" hidden>
+  <div class="drawer-head">
+    <h2>Backend inbox</h2>
+    <div>
+      <button class="btn ghost" id="backendRefresh">Refresh</button>
+      <button class="icon-btn" id="backendClose" aria-label="Close">✕</button>
+    </div>
+  </div>
+  <div class="drawer-note" id="aiExecution" aria-live="polite">Checking API and AI execution status…</div>
+  <form class="report-form" id="reportForm">
+    <h3>Submit a report</h3>
+    <label for="apiQuestion">Question</label>
+    <select id="apiQuestion" required></select>
+    <label for="apiComment">Student comment</label>
+    <textarea id="apiComment" maxlength="2000" required placeholder="Describe the issue"></textarea>
+    <button class="btn primary" type="submit">Save report to backend</button>
+    <span id="reportFormStatus" role="status"></span>
+  </form>
+  <ol id="apiReportList" class="api-report-list"></ol>
+  <details class="backend-audit">
+    <summary>Server audit history</summary>
+    <ol id="apiAuditList" class="api-report-list"></ol>
+  </details>
 </div>
 
 <div class="modal" id="helpModal" hidden>
@@ -63,9 +91,9 @@
     <h2>Keyboard</h2>
     <dl class="keys">
       <dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>Next / previous case</dd>
-      <dt><kbd>a</kbd></dt><dd>Approve (keep fix / apply / send replies)</dd>
-      <dt><kbd>e</kbd></dt><dd>Edit the proposal and replies</dd>
-      <dt><kbd>r</kbd></dt><dd>Reject (revert an auto-applied fix)</dd>
+      <dt><kbd>a</kbd></dt><dd>Mark reviewed in this browser demo</dd>
+      <dt><kbd>e</kbd></dt><dd>Edit a local demo proposal</dd>
+      <dt><kbd>r</kbd></dt><dd>Reject a proposal in this browser demo</dd>
       <dt><kbd>s</kbd></dt><dd>Switch diff: rendered / source</dd>
       <dt><kbd>u</kbd></dt><dd>Undo last action</dd>
       <dt><kbd>/</kbd></dt><dd>Search</dd>

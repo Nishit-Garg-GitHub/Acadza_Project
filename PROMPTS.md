@@ -9,8 +9,16 @@ How the AI is orchestrated inside the product, every prompt it sends (verbatim),
 - **The pipeline is real:** detectors, comment screening, duplicate grouping, guards, routing, the auto-apply step, the patched DB and the console export all ran as code. `python -m engine.run` reproduces `results.json` byte-for-byte.
 - **The two LLM stages (blind solve, judge) are recordings, not live API calls.** I had no Anthropic API key while building. Claude Opus 5.5, working as my coding assistant, answered the exact production prompts below once per question (blind solve first, then the judge, with that solve as input). Those answers live in `engine/replay/*.json`, each stored with the sha256 of the real request it answers. If a prompt or an input changes, the hash stops matching. Replay then refuses the stale answer, and that stage falls back to rule-based triage, which never auto-applies.
 - `tools/record_offline.py` is the file those answers were written into, so you can see exactly what the "model" said for every question.
-- **To make every number live:** `pip install anthropic && export ANTHROPIC_API_KEY=… && python -m engine.run --live --record`. The guards re-check everything regardless of where the LLM output came from.
+- **To run live:** use `LLM_PROVIDER=groq` (default) with `GROQ_API_KEY`, run `python -m engine.run --smoke-test` first, then `python -m engine.run --live --record`. Groq outputs and recordings use separate `*_groq` files and `engine/replay_groq/`; the original Claude baseline is never overwritten. Anthropic remains optional via `LLM_PROVIDER=anthropic` and `ANTHROPIC_API_KEY`.
 - The deployed console loads precomputed results (`console/data.json`). It makes no LLM calls in the browser.
+
+## Provider compatibility and current verification
+
+The solver, judge, and reply prompt wording and versions remain unchanged and provider-independent. The provider adapter requests Groq Chat Completions with strict JSON Schema output for `openai/gpt-oss-120b`, uses `max_completion_tokens`, and supplies the model's `reasoning_effort` setting. Groq schema adaptation represents the judge's nullable repair enum using a nullable type and enum; returned JSON is parsed and validated again in Python. Anthropic continues to use its Messages structured-output API.
+
+Live provider calls have configured timeouts, bounded exponential retries for rate limits/transient transport or service failures, one controlled retry for malformed/schema-invalid JSON, and safe authentication/outage messages. The model, provider, latency, token usage, and API errors are logged when returned. A provider failure stays a live failure and uses the existing safe code fallback; it never changes the run to replay.
+
+No Groq API key is configured in the local execution environment for this update, so no live response, real-model compatibility result, token/cost metric, or Groq-versus-Claude accuracy claim is available. The Groq tests mock the SDK and verify request construction, provider errors, retries, schema handling, replay, and Anthropic compatibility without API credits. No provider-specific prompt iteration or live-model failure is claimed.
 
 ---
 

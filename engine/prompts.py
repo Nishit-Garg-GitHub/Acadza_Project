@@ -1,6 +1,6 @@
 """Every prompt the product sends, verbatim. PROMPTS.md quotes this file; keep them in sync.
 
-Three LLM stages, all on claude-opus-5-5 with structured JSON output:
+Three provider-independent LLM stages with structured JSON output:
   SOLVER  - blind independent solve (no key, no stored solution, no student comment)
   JUDGE   - one call per *question* (duplicate reports grouped), sees record + detectors + solver
   REPLY   - only when a guard overrides the judge's route, so the student is never told

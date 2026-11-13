@@ -1,8 +1,9 @@
 """Report -> Fix pipeline.
 
-    python -m engine.run                 # replay recorded LLM outputs (no key, no spend)
-    python -m engine.run --live          # call the Anthropic API (needs ANTHROPIC_API_KEY)
-    python -m engine.run --live --record # ...and refresh engine/replay/*.json
+    python -m engine.run                            # original Claude replay (no key, no spend)
+    python -m engine.run --live                     # call the selected API provider
+    python -m engine.run --live --record            # save provider recordings separately
+    python -m engine.run --replay-set groq          # replay a Groq recording set
 
 Stages per question (duplicate reports are grouped first, so N reports on one question cost one judge call):
   1 detectors (code)      2 screen comments (code)     3 blind solve (LLM)
@@ -18,7 +19,8 @@ from collections import OrderedDict
 from datetime import datetime, timezone
 
 from . import comments, detectors, guards, prompts
-from .llm import LLM, MODEL, Unavailable
+from . import llm
+from .llm import Unavailable
 from .records import ROOT, load_all
 
 TIER = {  # urgency weight: how much harm per hour the defect does, and to whom
@@ -106,9 +108,35 @@ def template_reply(verdict, route, register, evidence=""):
 
 
 # ---------------------------------------------------------------- pipeline
-def run(mode="replay", record=False, only=None):
+def run(mode="replay", record=False, only=None, output_suffix=None, replay_set="claude"):
     recs, reports, taxonomy = load_all()
-    llm = LLM(mode, record)
+    replay_dirs = {
+        "claude": llm.REPLAY_DIR,
+        "groq": llm.GROQ_REPLAY_DIR,
+        "anthropic": llm.ANTHROPIC_REPLAY_DIR,
+    }
+    if replay_set not in replay_dirs:
+        raise ValueError(f"unsupported replay set: {replay_set}")
+    replay_dir = replay_dirs[replay_set]
+    if mode == "live" and record:
+        replay_dir = replay_dirs[llm.PROVIDER]
+    client = llm.LLM(mode, record, replay_dir=replay_dir)
+    suffix = output_suffix or (client.provider if mode == "live" else "replay")
+    execution_provider = client.provider if mode == "live" else "replay"
+    execution_model = client.model if mode == "live" else (
+        "Claude Opus 5.5 (recorded)" if replay_set == "claude" else f"{replay_set} recordings"
+    )
+
+    def output_path(name):
+        if not suffix:
+            return ROOT / name
+        if name == "data/questions.patched.json":
+            return ROOT / "data" / f"questions.patched.{suffix}.json"
+        if name == "console/data.json":
+            return ROOT / "console" / f"data.{suffix}.json"
+        stem, extension = name.rsplit(".", 1)
+        return ROOT / f"{stem}_{suffix}.{extension}"
+
     screens = {r["reportId"]: comments.screen(r["comment"]) for r in reports}
     groups = OrderedDict()
     for r in sorted(reports, key=lambda r: r["reportedAt"]):
@@ -127,13 +155,13 @@ def run(mode="replay", record=False, only=None):
         det = detectors.run(rec)
         # 3. blind solve
         try:
-            solve = llm.json("solver", qid, prompts.SOLVER_SYSTEM, prompts.solver_user(rec), prompts.SOLVER_SCHEMA, effort="high")
+            solve = client.json("solver", qid, prompts.SOLVER_SYSTEM, prompts.solver_user(rec), prompts.SOLVER_SCHEMA, effort="high")
         except Unavailable as e:
             solve, _ = None, notes.append(str(e))
         # 4. judge
         juser = prompts.judge_user(rec, det, solve, reps, screens)
         try:
-            judge = llm.json("judge", qid, jsys, juser, jschema, effort="high")
+            judge = client.json("judge", qid, jsys, juser, jschema, effort="high")
             judge_src = "llm"
         except Unavailable as e:
             notes.append(str(e))
@@ -150,7 +178,7 @@ def run(mode="replay", record=False, only=None):
             if not guards.reply_consistent(reply, route):
                 decision = {"verdict": d["verdict"], "repair": d.get("repair"), "route": route, "evidence": d["evidence"]}
                 try:
-                    reply = llm.json("reply", r["reportId"], prompts.REPLY_SYSTEM,
+                    reply = client.json("reply", r["reportId"], prompts.REPLY_SYSTEM,
                                      prompts.reply_user(r, decision, screens[r["reportId"]]["register"]),
                                      prompts.REPLY_SCHEMA, effort="low", max_tokens=2000)["student_reply"]
                     reply_src = "reply-llm"
@@ -235,17 +263,28 @@ def run(mode="replay", record=False, only=None):
 
     # ---------------------------------------------------------------- outputs
     ordered = [results[r["reportId"]] for r in reports if r["reportId"] in results]
-    (ROOT / "results.json").write_text(json.dumps(ordered, ensure_ascii=False, indent=1), encoding="utf-8")
-    (ROOT / "findings_unreported.json").write_text(json.dumps(
+    output_path("results.json").write_text(json.dumps(ordered, ensure_ascii=False, indent=1), encoding="utf-8")
+    output_path("findings_unreported.json").write_text(json.dumps(
         [f for f in sweep if not any(c["questionId"] == f["questionId"] and c["reports"] for c in cases)] +
         [f for f in sweep if any(c["questionId"] == f["questionId"] and c["reports"] for c in cases)],
         ensure_ascii=False, indent=1), encoding="utf-8")
-    (ROOT / "data" / "questions.patched.json").write_text(json.dumps(list(patched.values()), ensure_ascii=False, indent=1), encoding="utf-8")
+    output_path("data/questions.patched.json").write_text(json.dumps(list(patched.values()), ensure_ascii=False, indent=1), encoding="utf-8")
     lane_order = {"decide": 0, "spotcheck": 1, "sweep": 2, "replies": 3}
     cases.sort(key=lambda c: (lane_order[c["lane"]], -c["urgency"], c["firstReportedAt"] or "9"))
     console = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "mode": mode, "model": MODEL,
+        "mode": mode, "provider": execution_provider,
+        "model": execution_model,
+        "execution": {
+            "provider": execution_provider,
+            "model": execution_model,
+            "mode": mode,
+            "status": ("failed" if not client.calls else "partial" if client.errors else "success")
+            if mode == "live" else "replay",
+            "last_successful_at": next((c["at"] for c in reversed(client.log) if c.get("status") == "response"), None)
+            if mode == "live" and not client.errors else None,
+            "api_errors": client.errors,
+        },
         "promptVersions": [prompts.SOLVER_VERSION, prompts.JUDGE_VERSION, prompts.REPLY_VERSION],
         "taxonomy": taxonomy,
         "questions": {qid: {
@@ -256,10 +295,23 @@ def run(mode="replay", record=False, only=None):
             for qid, r in recs.items()},
         "cases": cases,
     }
-    (ROOT / "console" / "data.json").write_text(json.dumps(console, ensure_ascii=False), encoding="utf-8")
-    log = {"mode": mode, "llm_calls_live": llm.calls, "calls": llm.log, "notes": notes,
-           "usd_total": round(sum(c.get("usd", 0) for c in llm.log), 4)}
-    (ROOT / "run_log.json").write_text(json.dumps(log, indent=1), encoding="utf-8")
+    output_path("console/data.json").write_text(json.dumps(console, ensure_ascii=False), encoding="utf-8")
+    live_calls = [c for c in client.log if c.get("mode") == "live"]
+    call_costs = [c.get("estimated_cost_usd") for c in live_calls]
+    estimated_cost = sum(call_costs) if live_calls and all(cost is not None for cost in call_costs) else None
+    log = {
+        "mode": mode, "provider": execution_provider,
+        "model": execution_model, "llm_calls_live": client.calls, "calls": client.log,
+        "notes": notes, "api_errors": client.errors,
+        "tokens": {
+            "input": sum(c.get("input_tokens") or 0 for c in live_calls),
+            "output": sum(c.get("output_tokens") or 0 for c in live_calls),
+        },
+        "average_latency_ms": round(sum(c.get("latency_ms", 0) for c in live_calls) / len(live_calls))
+        if live_calls else None,
+        "estimated_cost_usd": round(estimated_cost, 8) if estimated_cost is not None else None,
+    }
+    output_path("run_log.json").write_text(json.dumps(log, indent=1), encoding="utf-8")
 
     # summary
     from collections import Counter
@@ -267,17 +319,45 @@ def run(mode="replay", record=False, only=None):
     print("routes  :", dict(Counter(r["route"] for r in ordered)))
     print("verdicts:", dict(Counter(r["verdict"] for r in ordered)))
     if notes:
-        print(f"{len(notes)} stage(s) fell back:", *notes[:8], sep="\n  ")
+        print(f"{len(notes)} stage(s) used safe fallback:", *notes[:8], sep="\n  ")
     return ordered
+
+
+def smoke_test():
+    """Make one real solver request and report the provider/model actually returned."""
+    records, _, _ = load_all()
+    qid, rec = next(iter(records.items()))
+    client = llm.LLM("live")
+    client.json("solver", qid, prompts.SOLVER_SYSTEM, prompts.solver_user(rec), prompts.SOLVER_SCHEMA,
+                effort="high", max_tokens=4000)
+    response = next((entry for entry in reversed(client.log) if entry.get("status") == "response"), None)
+    if not response:
+        raise RuntimeError("provider returned no successful response")
+    print(json.dumps({
+        "status": "success",
+        "provider": response["provider"],
+        "requested_model": client.model,
+        "returned_model": response["model"],
+        "input_tokens": response.get("input_tokens"),
+        "output_tokens": response.get("output_tokens"),
+        "latency_ms": response.get("latency_ms"),
+    }, indent=2))
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--live", action="store_true")
+    ap.add_argument("--smoke-test", action="store_true", help="make one provider request without running evaluation")
     ap.add_argument("--record", action="store_true")
     ap.add_argument("--only", nargs="*")
+    ap.add_argument("--output-suffix", help="write outputs to suffixed files without replacing baseline data")
+    ap.add_argument("--replay-set", choices=("claude", "groq", "anthropic"), default="claude")
     a = ap.parse_args(argv)
-    run("live" if a.live else "replay", a.record, set(a.only) if a.only else None)
+    if a.smoke_test:
+        smoke_test()
+        return
+    run("live" if a.live else "replay", a.record, set(a.only) if a.only else None,
+        a.output_suffix, a.replay_set)
 
 
 if __name__ == "__main__":

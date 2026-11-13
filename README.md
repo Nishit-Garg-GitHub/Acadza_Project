@@ -1,84 +1,129 @@
-# Acadza Report → Fix
+# Acadza AI Report-to-Fix
 
-A triage engine that turns student "Report error" comments into safe, surgical fixes, and a review console a tired faculty member can clear at 10 PM.
+An existing Python triage engine and faculty console for JEE/NEET question-error reports. It combines deterministic detectors and guards with three optional LLM stages; LLM output is always a proposal, never a production question-bank write.
 
-- **`results.json`**: 44 reports triaged (verdict, repair, edit, route, confidence, evidence, student reply)
-- **`findings_unreported.json`**: 18 defects no student reported, across 15 questions (bonus)
-- **`console/`**: the faculty review console (static; deploys as-is)
-- **[PROMPTS.md](PROMPTS.md)**: every product prompt verbatim, the orchestration, AI mistakes, decision log
-- **[PRODUCT.md](PRODUCT.md)**: who loses most, what never auto-applies, week-1 metric, one pitch
-- **[BRIEF.md](BRIEF.md)**: the original assignment brief
+## Architecture
 
-> **Honesty note.** No API key was available while building, so the two LLM stages were answered by Claude (my coding assistant) using the exact production prompts, and stored as hash-checked recordings. Everything else ran as real code: detectors, guards, routing, apply, export. Running with `--live --record` replaces every recording with real API output. Details: [PROMPTS.md §0](PROMPTS.md#0-how-resultsjson-was-produced-read-this-first).
-
-## Results at a glance
-
-| | |
-|---|---|
-| Reports | 44 on 39 questions (+4 unreported questions swept) |
-| Routes | **19 auto_apply** · **8 faculty_review** · **17 no_change** |
-| Verdicts | 27 defect · 11 no_error · 2 display · 1 app · 1 language · 1 already_fixed · 1 not_actionable |
-| Wrong answer keys fixed | LCR 130 V → 50 V (3 reports), gas pressure A → D, flux n 2 → 1, malformed mcq key `["A, B, D"]` |
-| Traps handled | prompt injection (R027) ignored and blocked; student right that the key is wrong but wrong about the value (R004); unsound A/R question sent to faculty, not re-keyed (R034); already-fixed typo (R017); invented distractor refused (R009/R010) |
-
-## How it works
-
-```
-report ─► screen comment (code) ─┐
-record ─► detectors (code) ──────┼─► blind solve (LLM: stem+options only) ─► judge (LLM: 1 call per question)
-                                 │                                                │
-                                 └──────────────────────────────► guards (code) ◄─┘
-                                                                     │
-                                         auto_apply · faculty_review · no_change
+```text
+reports + questions
+  -> comment screening + deterministic detectors
+  -> blind solver (stem/options only)
+  -> judge (record + findings + reports + blind solve)
+  -> Python guards and routing
+  -> reply consistency check / optional reply generator
+  -> results, run log, evaluation snapshot, review console
 ```
 
-The LLM proposes; code decides. An edit auto-applies only if it is in the repair's field scope, anchors to exactly one place in the stored HTML, preserves what that repair must not change (digits for spelling and markup, stem for options, only insertions for units), agrees with the blind solve when it touches the key, and clears the confidence bar. Anything else goes to faculty with the failed check spelled out. Full table: [PROMPTS.md §1](PROMPTS.md#1-orchestration-what-runs-in-what-order-and-why).
+- `engine/records.py` normalizes the source JSON; `detectors.py`, `comments.py`, and `guards.py` are deterministic.
+- `engine/llm.py` provides Groq, optional Anthropic, and hash-checked replay modes.
+- `engine/run.py` groups reports by question, executes the pipeline, and writes namespaced output files.
+- `engine/replay/` contains the original Claude-authored offline recordings. They are retained as a comparison baseline and are not live Claude API output or verified ground truth.
+- `api/main.py` is an optional FastAPI/SQLite report-ingestion and faculty-decision service. Approval only records a faculty decision; question-bank publishing is deliberately not implemented.
+- `console/` is a static faculty console. Its original sample queue is a browser-only demo; the Backend drawer connects to the API inbox when available.
 
-## Run it
+The original baseline remains in `results.json`, `run_log.json`, `findings_unreported.json`, `console/data.json`, `data/questions.patched.json`, and `engine/replay/`. Live Groq runs write separate `_groq` outputs and `engine/replay_groq/`.
 
-Python 3.10+, standard library only (the `anthropic` SDK is needed only for live runs).
+## Install and configure
 
-```bash
-python3 -m engine.run
+Python 3.10+ is recommended. On Windows, use an installed supported version explicitly:
+
+```powershell
+py -3.12 -m pip install -r requirements.txt
+Copy-Item .env.example .env
 ```
 
-Replays recorded LLM outputs and rewrites `results.json`, `findings_unreported.json`, `console/data.json` and `data/questions.patched.json` (the DB after auto-fixes).
+Set `GROQ_API_KEY` in your local `.env` (or the process environment). `.env` is ignored by Git. `.env.example` contains placeholders only. Never put credentials in source code or frontend configuration. The default configuration is:
 
-```bash
-python3 -m unittest discover -s tests -t .
+```dotenv
+LLM_PROVIDER=groq
+GROQ_MODEL=openai/gpt-oss-120b
+GROQ_API_KEY=
+ACADZA_MODE=replay
+LLM_TIMEOUT_SECONDS=60
+LLM_MAX_RETRIES=2
 ```
 
-Runs the guard and detector tests.
+`python-dotenv` loads `.env` for local runs. Live requests use the Groq SDK, Chat Completions, strict JSON Schema response format, a timeout and bounded retries for rate limits/transient outages. Invalid JSON gets one controlled retry; schema-invalid output is rejected. Authentication and provider failures are reported explicitly and never switch the run to replay. Optional per-million-token prices can be configured in `.env` to estimate cost; otherwise cost is `null`.
 
-```bash
-python3 -m http.server 8765 --directory console
+Anthropic remains available by setting `LLM_PROVIDER=anthropic`, `ANTHROPIC_API_KEY`, and optionally `ANTHROPIC_MODEL`. The solver, judge, and reply prompt wording is shared between providers.
+
+## Run the pipeline
+
+### Original Claude replay
+
+```powershell
+py -3.12 -m engine.run
 ```
 
-Serves the console at http://127.0.0.1:8765.
+By default this replays the original hash-checked Claude recordings but writes to `results_replay.json`, `run_log_replay.json`, `findings_unreported_replay.json`, `console/data.replay.json`, and `data/questions.patched.replay.json`. It does not overwrite the original baseline. Use `--output-suffix <name>` to choose another output namespace.
 
-Live run with real API calls (Claude Opus 5.5, structured outputs, prompt caching):
+### One-request live smoke test
 
-```bash
-pip install -r requirements.txt && export ANTHROPIC_API_KEY=sk-ant-... && python3 -m engine.run --live --record
+```powershell
+py -3.12 -m engine.run --smoke-test
 ```
 
-## Deploy the console
+This makes one solver request and prints the actual provider and model returned. Run it before a full live evaluation. If no key is configured, it exits with an explicit configuration error; no API result is fabricated.
 
-It's a static folder. With Vercel or Netlify, import the repo and the included `vercel.json` / `netlify.toml` publish `console/`. With GitHub Pages, publish the `console/` folder. The console loads precomputed results from `console/data.json` and makes no LLM calls in the browser.
+### Full Groq evaluation
 
-## Console
+After the smoke test succeeds:
 
-- **Queue grouped by question,** in four lanes: *Needs your decision* → *Auto-applied · spot-check* → *Found by sweep* → *Replies only*. Within a lane, cases are ordered by harm (wrong grading → unanswerable → wrong teaching → mis-filed → cosmetic), then by number of reporters.
-- **Each case shows** the change in one line ("Key C → A", "plexux → plexus"), rendered before/after with MathML and only the changed span highlighted (or the raw HTML diff), the blind solve, the evidence, the guard checks, every student comment, and the reply each will get.
-- **Approve / Edit (live preview) / Reject or Revert,** each written to an append-only, exportable audit log with undo. Keyboard: `j` `k` `a` `e` `r` `s` `u` `/` `?`.
-
-## Layout
-
+```powershell
+py -3.12 -m engine.run --live --record
+py -3.12 tools/evaluate_groq.py
 ```
-engine/      records.py · linearize.py (HTML+MathML → text) · detectors.py · comments.py
-             prompts.py · llm.py (live/replay) · guards.py · run.py (pipeline)
-engine/replay/   recorded LLM outputs (hash-checked)
-tools/record_offline.py   how those recordings were produced
-tests/       guard + detector tests
-console/     index.html · app.js · app.css · data.json
+
+Groq outputs are written to `results_groq.json`, `run_log_groq.json`, `findings_unreported_groq.json`, `data/questions.patched.groq.json`, and `console/data.groq.json`; new recordings go to `engine/replay_groq/`. These are separate from the original Claude files.
+
+`evaluation_groq_vs_claude.json` reports model agreement separately from correctness. The repository has no independently verified full-set ground-truth labels; quality metrics such as classification accuracy, false-positive/negative rate, answer-key accuracy, repair correctness, and auto-apply precision remain `null` until verified labels are supplied as `data/ground_truth.json`. Operational rates, API failures, token counts, and latency are reported when a Groq run exists. Estimated cost is `null` unless token prices are configured.
+
+To replay Groq recordings without making API calls:
+
+```powershell
+py -3.12 -m engine.run --replay-set groq --output-suffix groq_replay
 ```
+
+This is replay, not a live Groq evaluation.
+
+## Backend and faculty console
+
+Start the API (SQLite is created at `data/acadza.sqlite3` by default):
+
+```powershell
+py -3.12 -m uvicorn api.main:app --host 127.0.0.1 --port 8000
+```
+
+OpenAPI documentation is at `http://127.0.0.1:8000/docs`; health is at `/health`. The API implements report intake/list/detail/process, decision retrieval/approval/rejection, and audit history. Exact duplicate comments for the same question are idempotent. Processing runs in a background task and stores proposed decisions, provider metadata, and errors in SQLite.
+
+Serve the static console in another terminal:
+
+```powershell
+py -3.12 -m http.server 8765 --directory console
+```
+
+Open `http://127.0.0.1:8765`. The Backend drawer submits reports and connects to the API for processing, decisions, and server audit history. Override the API base URL with `?api=https://your-api.example`. No provider key is sent to browser code.
+
+The static sample queue remains a demonstration: its approve/edit/reject/reply actions are stored in browser `localStorage` and do not update the API, send messages, or publish questions. Only actions in the Backend inbox are persisted by the API, and even API approval does not publish an edit or send a reply.
+
+## Safety and production boundaries
+
+- Solver input excludes answer key, stored solution, and report text.
+- The model proposes structured edits only; Python enforces taxonomy and field scopes, anchors, answer/question-type checks, confidence thresholds, injection blocking, and repair-specific invariants.
+- Missing distractors and other non-derivable authored content are not invented or auto-applied.
+- No engine or API path writes to the production question bank.
+- API CORS is restricted to local console origins by default. The minimal API has no faculty authentication and is intended for local/demo use; deployment requires an identity-aware access layer, managed secrets, HTTPS, database backups, and operational monitoring before external access.
+
+## Tests
+
+```powershell
+py -3.12 -m unittest discover -s tests -t .
+```
+
+Provider responses are mocked in unit tests; the suite uses no API credits. The existing safety and detector tests remain in place.
+
+## Existing baseline snapshot
+
+The checked-in original evaluation contains 44 reports on 39 reported questions and 18 unreported findings. Its recorded outcomes include 19 `auto_apply`, 8 `faculty_review`, and 17 `no_change` routes. These are outputs of the original offline replay, not verified production changes or independently labeled accuracy metrics.
+
+See [PROMPTS.md](PROMPTS.md) for the actual prompts, recorded-development history, and provider compatibility notes; [PRODUCT.md](PRODUCT.md) for the review flow, safety model, and production roadmap; [BRIEF.md](BRIEF.md) for the original assignment.

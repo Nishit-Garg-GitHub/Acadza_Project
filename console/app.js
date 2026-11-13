@@ -1,13 +1,15 @@
-/* Acadza Fix Queue — faculty review console. Vanilla JS, no build step.
-   Reads data.json exported by `python -m engine.run`. Actions + audit log persist in localStorage. */
+/* Acadza Fix Queue — static review queue plus optional SQLite API inbox. */
 "use strict";
 
 const STORE_KEY = "acadza.fixqueue.v1";
+const API_BASE = new URLSearchParams(location.search).get("api")
+  || document.querySelector('meta[name="api-base"]')?.content
+  || "http://127.0.0.1:8000";
 const LANES = {
   decide:    { title: "Needs your decision", sub: "AI can't or mustn't apply these alone", act: "Approve" },
-  spotcheck: { title: "Auto-applied · spot-check", sub: "Already live for students — keep or revert", act: "Keep fix" },
+  spotcheck: { title: "Auto-apply eligible", sub: "Passed guards in the generated demo output; not published", act: "Review proposal" },
   sweep:     { title: "Found by sweep", sub: "Defects no student reported", act: "Approve" },
-  replies:   { title: "Replies only", sub: "Record checked and fine — just send the replies", act: "Send replies" },
+  replies:   { title: "Replies preview", sub: "Record checked; replies are not sent from this demo", act: "Mark reviewed" },
 };
 const VERDICT = {
   defect: "Real defect", no_error: "Student mistaken", display_issue: "Display issue", app_issue: "App issue",
@@ -41,6 +43,7 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 
 let DATA = null;
 let state = { status: {}, audit: [], reviewer: "", theme: null };
+let backend = { health: null, reports: [], audit: [], error: null, loading: false };
 let ui = { sel: 0, filter: "all", q: "", diff: "rendered", editing: false, rejecting: false, rejectReason: null, list: [] };
 
 /* ---------------------------------------------------------------- persistence */
@@ -184,14 +187,12 @@ function renderSummary() {
   const cases = DATA.cases;
   const count = (lane) => cases.filter((c) => c.lane === lane).length;
   const handled = cases.filter((c) => caseStatus(c)).length;
-  const live = cases.filter((c) => c.lane === "spotcheck").length;
+  const eligible = cases.filter((c) => c.lane === "spotcheck").length;
+  const decisions = cases.filter((c) => c.lane === "decide" && !caseStatus(c)).length;
   $("#summary").innerHTML = `
-    <div class="progress" title="Cases you have acted on"><span>${handled}/${cases.length}</span><div class="bar"><i style="width:${(100 * handled) / cases.length}%"></i></div></div>
-    <div class="stat key"><b>${count("decide")}</b> need you</div>
-    <div class="stat"><b>${live}</b> fixes live</div>
-    <div class="stat"><b>${count("sweep")}</b> sweep finds</div>
-    <div class="stat"><b>${count("replies")}</b> replies only</div>
-    <div class="stat" title="LLM outputs: ${esc(DATA.mode)} · ${esc(DATA.model)} · ${esc(DATA.promptVersions.join(", "))}">${DATA.mode === "replay" ? "recorded run" : "live run"}</div>`;
+    <div class="progress" title="Cases you have acted on"><span><b>${handled}</b> of ${cases.length} reviewed</span><div class="bar"><i style="width:${(100 * handled) / cases.length}%"></i></div></div>
+    <div class="stat"><b>${decisions}</b> need review</div>
+    <div class="stat"><b>${eligible}</b> auto-apply eligible</div>`;
   $("#auditCount").textContent = state.audit.length;
 }
 
@@ -205,8 +206,8 @@ function matches(c) {
   return hay.includes(ui.q.toLowerCase());
 }
 function renderFilters() {
-  const f = [["all", "All"], ["open", "Open"], ["decide", "Decide"], ["spotcheck", "Live fixes"], ["sweep", "Sweep"], ["replies", "Replies"]];
-  $("#filters").innerHTML = f.map(([k, l]) => `<button class="chip" data-filter="${k}" aria-pressed="${ui.filter === k}">${l}</button>`).join("");
+  const f = [["all", "All cases"], ["open", "Open only"], ["decide", "Needs review"], ["spotcheck", "Auto-apply eligible"], ["sweep", "Sweep finds"], ["replies", "Replies preview"]];
+  $("#filters").innerHTML = `<label for="queueFilter">Show</label><select id="queueFilter" aria-label="Filter cases">${f.map(([k, l]) => `<option value="${k}" ${ui.filter === k ? "selected" : ""}>${l}</option>`).join("")}</select>`;
 }
 function renderQueue() {
   ui.list = DATA.cases.filter(matches);
@@ -215,7 +216,7 @@ function renderQueue() {
   ui.list.forEach((c, i) => {
     if (c.lane !== lastLane) {
       const n = ui.list.filter((x) => x.lane === c.lane).length;
-      const bulk = c.lane === "replies" ? `<button class="lane-act" data-bulk="replies">Send all ${n}</button>` : "";
+      const bulk = c.lane === "replies" ? `<button class="lane-act" data-bulk="replies">Mark all reviewed</button>` : "";
       html += `<div class="lane-head"><span>${LANES[c.lane].title} · ${n}</span>${bulk}</div><div class="lane-sub">${LANES[c.lane].sub}</div>`;
       lastLane = c.lane;
     }
@@ -232,7 +233,7 @@ function renderQueue() {
   });
   nav.innerHTML = html || `<p class="empty">Nothing matches.</p>`;
   const open = DATA.cases.filter((c) => !caseStatus(c)).length;
-  $("#queueFoot").innerHTML = `Ordered by lane, then by harm: wrong grading → unanswerable → wrong teaching → mis-filing → cosmetic; more reporters rank higher. ${open} open.`;
+  $("#queueFoot").innerHTML = `<b>${open}</b> open ${open === 1 ? "case" : "cases"} <span title="Cases are grouped by review lane, then ordered by potential harm and number of reports.">· Highest impact first</span>`;
   const cur = nav.querySelector('[aria-current="true"]');
   if (cur) cur.scrollIntoView({ block: "nearest" });
 }
@@ -256,11 +257,12 @@ function renderCase() {
   if (st) {
     const who = esc(st.reviewer || "faculty"), when = new Date(st.at).toLocaleString();
     const claimed = !caseEdits(c).length && lr && lr.verdict === "defect";
-    const label = { approve: live ? "Fix kept" : claimed ? "Claimed" : !caseEdits(c).length ? "Replies sent" : "Approved and applied", edit: "Edited and applied", reject: live ? "Fix reverted" : "Rejected", bulk: "Replies sent" }[st.action];
-    banner = `<div class="done-banner ${st.action === "reject" ? "rej" : ""}">${label} by ${who} · ${when}<button class="btn ghost" data-act="undo">Undo</button></div>`;
+    const label = { approve: claimed ? "Acknowledged" : "Reviewed", edit: "Demo edit saved", reject: "Rejected in demo", bulk: "Reviewed in demo" }[st.action];
+    banner = `<div class="done-banner ${st.action === "reject" ? "rej" : ""}">Browser demo: ${label} by ${who} · ${when}; nothing was published<button class="btn ghost" data-act="undo">Undo</button></div>`;
   }
 
   main.innerHTML = `<div class="case-body" id="caseBody">
+    <div class="demo-notice">Static queue actions are saved only in this browser. They do not update a server, send student replies, or publish question-bank changes. Use <b>Backend</b> for persisted report review.</div>
     ${banner}
     <div class="case-head">
       <span class="pill lane-${c.lane}">${LANES[c.lane].title}</span>
@@ -289,11 +291,11 @@ function renderCase() {
 }
 
 function renderChangeCard(c, q, edits, lr, live) {
-  const title = live ? "Change already live" : edits.length ? (lr && lr.route === "faculty_review" ? "Suggested change — not applied" : "Proposed change") : "No change to the question";
+  const title = live ? "Auto-apply eligible proposal — not published" : edits.length ? "Suggested change — not applied" : "No change to the question";
   if (!edits.length) {
     let body;
-    if (lr && lr.verdict === "defect") body = `<p>The AI did not propose an edit — this needs authored content (${esc(REPAIR[lr.repair])}). Approving marks it as taken by you; the replies tell students a faculty member is on it.</p>`;
-    else if (lr) body = `<p><b>${VERDICT[lr.verdict]}.</b> The stored question, key and solution were checked; nothing changes. Only the student replies go out.</p>`;
+    if (lr && lr.verdict === "defect") body = `<p>The AI did not propose an edit — this needs authored content (${esc(REPAIR[lr.repair])}). A browser-only acknowledgement does not assign work or contact students.</p>`;
+    else if (lr) body = `<p><b>${VERDICT[lr.verdict]}.</b> The stored question, key and solution were checked; nothing changes. The student reply is only a preview.</p>`;
     else body = `<p>No student report. See the sweep findings below.</p>`;
     return `<section class="card"><div class="card-h"><h3>${title}</h3></div><div class="card-b">${body}${renderChecks(c)}</div></section>`;
   }
@@ -408,7 +410,7 @@ function renderStudents(c, st) {
       `<span class="pill ${res.verdict === "defect" ? "v-defect" : "v-ok"}">${VERDICT[res.verdict]}</span>`,
     ].join("");
     const when = new Date(rep.reportedAt).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-    const replyStatus = st ? (st.action === "reject" ? "held" : "sent") : res.route === "auto_apply" ? "ready" : "preview";
+    const replyStatus = st ? "demo reviewed" : "preview only";
     return `<div class="student">
       <div class="meta"><b>${rep.reportId}</b><span>${esc(rep.source)} · ${when}</span>${flags}</div>
       <div class="bubble ${sc.injection ? "inj" : ""}">${esc(rep.comment)}</div>
@@ -430,8 +432,8 @@ function renderFindings(c, q) {
       }
       return `<div class="change" style="font-size:13.5px">${changeLine(q, e)}</div>`;
     }).join("");
-    const acts = st ? `<span class="pill ${st.action === "reject" ? "status-rej" : "status-done"}">${st.action === "reject" ? "Rejected" : "Approved"}</span>`
-      : `<span class="acts"><button class="btn" data-f-approve="${i}" ${f.edits.length ? "" : "disabled title='No edit to apply - assign to faculty'"}>Approve</button><button class="btn danger" data-f-reject="${i}">Reject</button></span>`;
+    const acts = st ? `<span class="pill ${st.action === "reject" ? "status-rej" : "status-done"}">${st.action === "reject" ? "Rejected in demo" : "Acknowledged in demo"}</span>`
+      : `<span class="acts"><button class="btn" data-f-approve="${i}" ${f.edits.length ? "" : "disabled title='No edit to apply - assign to faculty'"}>Acknowledge (demo)</button><button class="btn danger" data-f-reject="${i}">Reject (demo)</button></span>`;
     return `<div class="finding"><div class="top-line"><span class="pill lane-sweep">${esc(REPAIR[f.repair] || f.repair)}</span>${acts}</div>
       <p class="ev">${esc(f.evidence)}</p>${edits}</div>`;
   }).join("");
@@ -447,25 +449,25 @@ function renderRecord(c, q) {
 }
 
 function renderActionBar(c, st, hasEdits, live) {
-  if (st) return `<div class="actionbar"><button class="btn" data-act="next">Next case <kbd>j</kbd></button><span class="hint">Done. Undo with <kbd>u</kbd>.</span></div>`;
+  if (st) return `<div class="actionbar"><button class="btn" data-act="next">Next case <kbd>j</kbd></button><span class="hint">Browser-only demo status. Undo with <kbd>u</kbd>.</span></div>`;
   if (ui.rejecting) {
     return `<div class="actionbar" style="display:block">
       <div class="reasons">${REJECT_REASONS.map((r) => `<button class="chip" data-reason="${esc(r)}" aria-pressed="${ui.rejectReason === r}">${esc(r)}</button>`).join("")}</div>
       <input class="edit" id="rejectNote" placeholder="Note for the audit log (optional)" style="margin-bottom:10px">
-      <button class="btn danger" data-act="confirm-reject" ${ui.rejectReason ? "" : "disabled"}>${live ? "Revert fix" : "Reject"}</button>
+      <button class="btn danger" data-act="confirm-reject" ${ui.rejectReason ? "" : "disabled"}>${live ? "Reject proposal" : "Reject (demo)"}</button>
       <button class="btn ghost" data-act="cancel">Cancel</button>
-      <span class="hint">${live ? "Reverting restores the original record; replies are held for you to answer." : "Nothing is applied; replies are held."}</span></div>`;
+      <span class="hint">This browser-only action does not change question data or contact students.</span></div>`;
   }
   if (ui.editing) {
-    return `<div class="actionbar"><button class="btn primary" data-act="save-edit">Save & ${live ? "keep" : "apply"} <kbd>⌘↵</kbd></button><button class="btn ghost" data-act="cancel">Cancel <kbd>Esc</kbd></button><span class="hint">Your edits are recorded next to the AI's original in the audit log.</span></div>`;
+    return `<div class="actionbar"><button class="btn primary" data-act="save-edit">Save demo edit <kbd>⌘↵</kbd></button><button class="btn ghost" data-act="cancel">Cancel <kbd>Esc</kbd></button><span class="hint">Saved only in this browser; never published.</span></div>`;
   }
   const lr = leadResult(c);
-  const approve = live ? "Keep fix" : c.lane === "replies" ? "Send replies" : hasEdits ? "Approve & apply" : lr && lr.verdict === "defect" ? "Take it — I'll fix" : "Approve";
+  const approve = live ? "Acknowledge proposal (demo)" : c.lane === "replies" ? "Mark reviewed (demo)" : hasEdits ? "Approve in demo" : "Mark reviewed (demo)";
   return `<div class="actionbar">
     <button class="btn primary" data-act="approve">${approve} <kbd>a</kbd></button>
-    <button class="btn" data-act="edit">Edit <kbd>e</kbd></button>
-    <button class="btn danger" data-act="reject">${live ? "Revert" : "Reject"} <kbd>r</kbd></button>
-    <span class="hint"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>s</kbd> source · <kbd>?</kbd> keys</span></div>`;
+    <button class="btn" data-act="edit">Edit demo <kbd>e</kbd></button>
+    <button class="btn danger" data-act="reject">Reject in demo <kbd>r</kbd></button>
+    <span class="hint">Browser-only · no publication · <kbd>j</kbd>/<kbd>k</kbd> move · <kbd>s</kbd> source</span></div>`;
 }
 
 /* ---------------------------------------------------------------- actions + audit */
@@ -490,15 +492,12 @@ function act(kind, extra = {}) {
     verdict: lr?.verdict, repair: lr?.repair, route: lr?.route,
     proposedEdits: proposed, finalEdits: kind === "reject" ? [] : edits,
     replies: kind === "reject" ? {} : replies, reason: extra.reason, note: extra.note,
-    effect: c.lane === "spotcheck" ? (kind === "reject" ? "reverted live fix" : "kept live fix")
-      : kind === "reject" ? "no change applied; replies held"
-      : edits.length ? "applied edits; replies sent"
-      : lr?.verdict === "defect" ? "claimed by reviewer (needs authored content); replies sent" : "replies sent",
+    effect: "browser-only demo state; no server write, student message, or question-bank publication",
   });
   state.status[caseKey(c)] = { action: kind, at: entry.at, reviewer: entry.reviewer, auditId: entry.id, edits: kind === "edit" ? edits : null, replies: kind === "edit" ? replies : null };
   ui.editing = ui.rejecting = false; ui.rejectReason = null;
   save();
-  toast(`${{ approve: c.lane === "spotcheck" ? "Kept" : "Approved", edit: "Saved edit", reject: c.lane === "spotcheck" ? "Reverted" : "Rejected" }[kind]} · ${caseTitle(c)}`, true);
+  toast(`Saved in this browser demo · ${caseTitle(c)} · nothing published`, true);
   nextOpen();
 }
 function undo() {
@@ -521,17 +520,17 @@ function findingAct(i, kind) {
   const e = audit({ action: kind === "approve" ? "approve_finding" : "reject_finding", lane: c.lane, questionId: c.questionId, findingIndex: i, repair: f.repair, proposedEdits: f.edits, finalEdits: kind === "approve" ? f.edits : [] });
   state.status[`${caseKey(c)}#f${i}`] = { action: kind, at: e.at, reviewer: e.reviewer };
   save();
-  toast(`${kind === "approve" ? "Approved" : "Rejected"} finding · ${REPAIR[f.repair] || f.repair}`, true);
+  toast(`${kind === "approve" ? "Acknowledged" : "Rejected"} in browser demo · nothing published`, true);
   renderAll();
 }
 function bulkReplies() {
   const open = ui.list.filter((c) => c.lane === "replies" && !caseStatus(c));
   if (!open.length) return;
-  if (!confirm(`Send ${open.reduce((n, c) => n + c.reports.length, 0)} replies across ${open.length} cases? Each is logged separately.`)) return;
-  const e = audit({ action: "bulk", lane: "replies", questionIds: open.map((c) => c.questionId), reportIds: open.flatMap((c) => c.reports.map((r) => r.report.reportId)), effect: "replies sent" });
+  if (!confirm(`Mark ${open.length} cases reviewed in this browser demo? No replies will be sent.`)) return;
+  const e = audit({ action: "bulk", lane: "replies", questionIds: open.map((c) => c.questionId), reportIds: open.flatMap((c) => c.reports.map((r) => r.report.reportId)), effect: "browser-only demo status; replies not sent" });
   open.forEach((c) => { state.status[caseKey(c)] = { action: "bulk", at: e.at, reviewer: e.reviewer, auditId: e.id }; });
   save();
-  toast(`Sent replies for ${open.length} cases`, true);
+  toast(`Marked ${open.length} cases in this browser demo; no replies sent`, true);
   renderAll();
 }
 function nextOpen() {
@@ -562,6 +561,136 @@ function toast(msg, withUndo = false) {
   toastTimer = setTimeout(() => (t.hidden = true), 5000);
 }
 
+async function apiRequest(path, options = {}) {
+  const response = await fetch(`${API_BASE.replace(/\/+$/, "")}${path}`, {
+    ...options,
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+  });
+  let body = {};
+  try { body = await response.json(); } catch (_) { /* error below includes the HTTP status */ }
+  if (!response.ok) throw new Error(body.detail || `API returned HTTP ${response.status}`);
+  return body;
+}
+
+function renderExecution() {
+  const health = backend.health;
+  const execution = DATA?.execution || {};
+  const provider = health?.provider || execution.provider || "unknown";
+  const model = health?.model || execution.model || DATA?.model || "unknown";
+  const mode = health?.mode || execution.mode || DATA?.mode || "unknown";
+  const last = health?.last_successful_processing || execution.last_successful_at || null;
+  const errors = health?.api_errors || execution.api_errors || [];
+  const hasBackend = Boolean(health && health.status === "ok");
+  const badge = $("#aiBadge");
+  badge.textContent = `AI: ${provider} · ${mode}`;
+  badge.title = `${provider} · ${model} · ${mode} · ${execution.status || health?.status || "status unknown"}`;
+  const lastText = last ? new Date(last).toLocaleString() : "No live success recorded";
+  const readiness = health
+    ? (mode === "live" && !health.api_key_configured ? "Live mode selected; API key is not configured."
+      : `Backend ${health.status}; ${health.api_key_configured ? "provider key configured" : "no provider key configured"}.`)
+    : backend.error || "Backend is not connected; static queue remains browser-only.";
+  $("#aiExecution").innerHTML = `<div><b>${esc(provider)}</b> · ${esc(model)} · <b>${esc(mode)}</b></div>
+    <div>${esc(readiness)}</div>
+    <div>Last successful live processing: ${esc(lastText)}</div>
+    <div>API errors: ${errors.length ? esc(errors.map((e) => e.error || e).join(" · ")) : "none recorded"}</div>`;
+  $("#backendCount").textContent = hasBackend ? String(backend.reports.length) : "offline";
+}
+
+function renderBackendReports() {
+  const list = $("#apiReportList");
+  if (backend.loading) { list.innerHTML = `<li class="api-empty">Loading backend reports…</li>`; return; }
+  if (backend.error) { list.innerHTML = `<li class="api-empty error">${esc(backend.error)}</li>`; return; }
+  if (!backend.reports.length) { list.innerHTML = `<li class="api-empty">No reports stored in the backend yet.</li>`; return; }
+  list.innerHTML = backend.reports.map((report) => {
+    const q = DATA.questions[report.question_id] || {};
+    const decision = report.decision;
+    let actions = "";
+    if (!decision && report.process_status !== "processing") {
+      actions = `<button class="btn primary" data-api-process="${esc(report.id)}">${report.process_status === "failed" ? "Retry processing" : "Process with configured mode"}</button>`;
+    } else if (report.process_status === "processing") {
+      actions = `<span class="api-status">Processing…</span>`;
+    } else if (decision?.status === "awaiting_review") {
+      actions = `<button class="btn primary" data-api-approve="${esc(decision.id)}">Approve decision</button>
+        <button class="btn danger" data-api-reject="${esc(decision.id)}">Reject decision</button>`;
+    } else if (decision) {
+      actions = `<span class="api-status">${esc(decision.status)}</span>`;
+    } else {
+      actions = `<span class="api-status">${esc(report.process_status || "pending")}</span>`;
+    }
+    const decisionDetails = decision ? `<div class="api-decision">
+      <div><b>${esc(VERDICT[decision.verdict] || decision.verdict)}</b> · ${esc(decision.route)} · ${Math.round(decision.confidence * 100)}% confidence</div>
+      <div>${esc(decision.evidence)}</div>
+      ${decision.edits?.length ? `<details><summary>Suggested edit (not published)</summary><pre>${esc(JSON.stringify(decision.edits, null, 2))}</pre></details>` : ""}
+      <div class="api-meta">Execution: ${esc(decision.execution_mode)} · ${esc(decision.provider)} · ${esc(decision.model)} · ${esc(decision.source)}</div>
+      ${decision.api_errors?.length ? `<div class="api-error">Provider errors: ${esc(decision.api_errors.map((e) => e.error).join(" · "))}</div>` : ""}
+      <div class="api-reply"><b>Student reply preview, not sent:</b> ${esc(decision.student_reply)}</div>
+    </div>` : "";
+    return `<li class="api-report">
+      <div class="api-report-head"><b>${esc(q.subject || "Question")} · ${esc(q.chapter || report.question_id)}</b><span>${esc(report.process_status)}</span></div>
+      <div class="api-meta">Question ${esc(report.question_id)} · ${esc(report.source)} · ${new Date(report.created_at).toLocaleString()}</div>
+      <blockquote>${esc(report.comment)}</blockquote>
+      ${decisionDetails}
+      <div class="api-actions">${actions}</div>
+    </li>`;
+  }).join("");
+}
+
+function renderBackendAudit() {
+  $("#apiAuditList").innerHTML = backend.audit.length ? backend.audit.map((entry) => `<li>
+    <div><b>${esc(entry.action)}</b> · ${esc(entry.question_id)} · ${esc(entry.reviewer)}</div>
+    <div class="api-meta">${new Date(entry.created_at).toLocaleString()}${entry.note ? ` · ${esc(entry.note)}` : ""}</div>
+  </li>`).join("") : `<li class="api-empty">No server audit events yet.</li>`;
+}
+
+async function refreshBackend() {
+  backend.loading = true;
+  backend.error = null;
+  backend.health = null;
+  renderBackendReports();
+  try {
+    backend.health = await apiRequest("/health");
+    if (backend.health.status !== "ok") throw new Error(backend.health.configuration_error || "Backend configuration is invalid.");
+    [backend.reports, backend.audit] = await Promise.all([
+      apiRequest("/reports?limit=100"),
+      apiRequest("/audit?limit=100"),
+    ]);
+  } catch (error) {
+    backend.error = error.message || "Backend request failed.";
+    backend.reports = [];
+    backend.audit = [];
+  } finally {
+    backend.loading = false;
+    renderExecution();
+    renderBackendReports();
+    renderBackendAudit();
+  }
+  if (!$("#backendDrawer").hidden && backend.reports.some((report) => report.process_status === "processing")) {
+    setTimeout(refreshBackend, 1500);
+  }
+}
+
+function fillQuestionSelect() {
+  $("#apiQuestion").innerHTML = Object.values(DATA.questions).map((question) =>
+    `<option value="${esc(question.id)}">${esc(question.subject)} · ${esc(question.chapter)} · ${esc(question.id)}</option>`
+  ).join("");
+}
+
+async function reviewBackendDecision(decisionId, action) {
+  const endpoint = `/decisions/${encodeURIComponent(decisionId)}/${action}`;
+  try {
+    const result = await apiRequest(endpoint, {
+      method: "POST",
+      body: JSON.stringify({ reviewer: state.reviewer || "Faculty" }),
+    });
+    toast(result.published === false
+      ? `${action === "approve" ? "Decision approved" : "Decision rejected"} and audited; not published`
+      : `Decision ${action}ed`);
+    await refreshBackend();
+  } catch (error) {
+    toast(`Backend action failed: ${error.message}`);
+  }
+}
+
 function renderAudit() {
   $("#auditList").innerHTML = [...state.audit].reverse().map((e) => `<li>
     <div class="when">${new Date(e.at).toLocaleString()} · ${esc(e.reviewer)}</div>
@@ -578,15 +707,25 @@ function bind() {
   $("#reviewer").value = state.reviewer;
   $("#reviewer").addEventListener("change", (e) => { state.reviewer = e.target.value.trim(); save(); });
   $("#search").addEventListener("input", (e) => { ui.q = e.target.value; ui.sel = 0; renderQueue(); renderCase(); });
+  $("#filters").addEventListener("change", (e) => {
+    if (e.target.id !== "queueFilter") return;
+    ui.filter = e.target.value; ui.sel = 0; renderAll();
+  });
   document.addEventListener("click", (e) => {
     const t = e.target.closest("button, [data-copy]");
     if (!t) return;
-    if (t.dataset.filter) { ui.filter = t.dataset.filter; ui.sel = 0; renderAll(); }
-    else if (t.dataset.i !== undefined) { ui.sel = +t.dataset.i; ui.editing = ui.rejecting = false; renderAll(); scrollCaseTop(); $("#queue").classList.remove("open"); }
+    if (t.dataset.i !== undefined) { ui.sel = +t.dataset.i; ui.editing = ui.rejecting = false; renderAll(); scrollCaseTop(); $("#queue").classList.remove("open"); }
     else if (t.dataset.diff) { ui.diff = t.dataset.diff; renderCase(); }
     else if (t.dataset.bulk) bulkReplies();
     else if (t.dataset.fApprove !== undefined) findingAct(+t.dataset.fApprove, "approve");
     else if (t.dataset.fReject !== undefined) findingAct(+t.dataset.fReject, "reject");
+    else if (t.dataset.apiProcess !== undefined) {
+      apiRequest(`/reports/${encodeURIComponent(t.dataset.apiProcess)}/process`, { method: "POST" })
+        .then(refreshBackend)
+        .catch((error) => toast(`Processing request failed: ${error.message}`));
+    }
+    else if (t.dataset.apiApprove !== undefined) reviewBackendDecision(t.dataset.apiApprove, "approve");
+    else if (t.dataset.apiReject !== undefined) reviewBackendDecision(t.dataset.apiReject, "reject");
     else if (t.dataset.reason) { ui.rejectReason = t.dataset.reason; const note = $("#rejectNote")?.value; renderCase(); if (note) $("#rejectNote").value = note; }
     else if (t.dataset.copy) { navigator.clipboard?.writeText(t.dataset.copy); toast("Question id copied"); }
     else if (t.dataset.act) {
@@ -613,6 +752,32 @@ function bind() {
   });
   $("#auditBtn").onclick = () => { renderAudit(); $("#auditDrawer").hidden = false; };
   $("#auditClose").onclick = () => ($("#auditDrawer").hidden = true);
+  $("#backendBtn").onclick = () => {
+    $("#backendDrawer").hidden = false;
+    refreshBackend();
+  };
+  $("#backendClose").onclick = () => ($("#backendDrawer").hidden = true);
+  $("#backendRefresh").onclick = refreshBackend;
+  $("#reportForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const status = $("#reportFormStatus");
+    status.textContent = "Saving…";
+    try {
+      const report = await apiRequest("/reports", {
+        method: "POST",
+        body: JSON.stringify({
+          question_id: $("#apiQuestion").value,
+          comment: $("#apiComment").value,
+          source: "faculty-console",
+        }),
+      });
+      status.textContent = report.duplicate ? "Duplicate report; existing backend record returned." : "Report saved to backend.";
+      $("#apiComment").value = "";
+      await refreshBackend();
+    } catch (error) {
+      status.textContent = `Could not save report: ${error.message}`;
+    }
+  });
   $("#auditExport").onclick = () => {
     const blob = new Blob([JSON.stringify(state.audit, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
@@ -653,6 +818,9 @@ async function init() {
     return;
   }
   bind();
+  fillQuestionSelect();
   renderAll();
+  renderExecution();
+  refreshBackend();
 }
 init();

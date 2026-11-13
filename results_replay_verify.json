@@ -1,0 +1,596 @@
+[
+ {
+  "reportId": "R005",
+  "questionId": "68dea616d0cda73d07e93ae6",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "2",
+   "replace": "1"
+  },
+  "route": "auto_apply",
+  "confidence": 0.94,
+  "evidence": "Blind solve gives n = 1 (q/4ε0 + q/4ε0 = q/2ε0); the stored solution's own total q/2ε0 also means n = 1. Key '2' contradicts both.",
+  "student_reply": "You're right - n = 1. The face charge gives q/4ε₀ and the corner charge gives q/4ε₀, so the total is q/2ε₀, which means n = 1. The key said 2; it's fixed now, thanks for catching it."
+ },
+ {
+  "reportId": "R029",
+  "questionId": "68e8734442c06737d6e56da4",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.94,
+  "evidence": "m = 10 kg: F - 100μ = 10, 2F - 100μ = 100 -> F = 90 N, μ = 0.8. Blind solve and stored solution agree with key A.",
+  "student_reply": "μ = 0.8 is actually correct. Taking m = 100/10 = 10 kg: F − 100μ = 10 and 2F − 100μ = 100, which gives F = 90 N and μ = 0.8. Worth checking where your 0.4 came from - it's often the mass."
+ },
+ {
+  "reportId": "R012",
+  "questionId": "61dffbec08489156b684bd22",
+  "verdict": "defect",
+  "repair": "spelling",
+  "edit": {
+   "field": "question",
+   "find": "Epithellial tisue",
+   "replace": "Epithelial tissue"
+  },
+  "route": "auto_apply",
+  "confidence": 0.97,
+  "evidence": "Option A reads 'Epithellial tisue' -> 'Epithelial tissue'. Letters only; key A unaffected.",
+  "student_reply": "Thanks for spotting that - option A now reads \"Epithelial tissue\". The answer (A) is unchanged."
+ },
+ {
+  "reportId": "R002",
+  "questionId": "60f744b3f1b9bc7cc7b4a949",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "C",
+   "replace": "A"
+  },
+  "route": "auto_apply",
+  "confidence": 0.97,
+  "evidence": "V = √(V_R² + (V_L−V_C)²) = 50 V = option A; stored solution and blind solve both give 50 V; key C (130 V) is the arithmetic sum.",
+  "student_reply": "You're right, the key was wrong. V = √(40² + (60 − 30)²) = 50 V, which is option (A); the key has been fixed."
+ },
+ {
+  "reportId": "R004",
+  "questionId": "68e870ef42c06737d6e565c4",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "A",
+   "replace": "D"
+  },
+  "route": "auto_apply",
+  "confidence": 0.96,
+  "evidence": "P = ⅓ρv² = 4800 N/m² = option D. Blind solve, stored solution and detector all agree on D; key says A. Student's claimed 8225 (option B) is not correct.",
+  "student_reply": "Aapne sahi pakda ki key galat thi, par sahi answer 8225 nahi, 4800 N/m² hai (option D): P = ⅓ρv² = ⅓ × 0.09 × 400² = 4800. Key ab D kar di gayi hai."
+ },
+ {
+  "reportId": "R008",
+  "questionId": "60f742f6660d187cc13a8078",
+  "verdict": "defect",
+  "repair": "stem_data",
+  "edit": {
+   "field": "question",
+   "find": "an inductance are",
+   "replace": "an inductance of 95.5 mH are"
+  },
+  "route": "auto_apply",
+  "confidence": 0.92,
+  "evidence": "Stem gives no L; stored solution uses L = 95.5×10⁻³ H, giving X_L = 30 Ω and Z = 50 Ω = key C. Blind solve flagged the same missing value.",
+  "student_reply": "You're right - the inductance was missing from the question. It now states L = 95.5 mH, which gives X_L ≈ 30 Ω and Z = 50 Ω (option C)."
+ },
+ {
+  "reportId": "R034",
+  "questionId": "695ee00b88d7701e561aabc5",
+  "verdict": "defect",
+  "repair": "unsound",
+  "edit": null,
+  "route": "faculty_review",
+  "confidence": 0.88,
+  "evidence": "I = I0 + I0 + 2I0cos90° = 2I0, so the Assertion is false (the student is wrong on this); the Reason is false for general φ. No option fits; the solution's I = 2I0cos²(φ/2) is wrong and self-contradictory. Needs faculty rewrite (fix Reason or options).",
+  "student_reply": "Good catch that something is off here, though not quite the way you think: with equal amplitudes and phase difference π/2, I = I₀ + I₀ + 2I₀cos 90° = 2I₀, so the Assertion is false. The Reason is also false, so none of the options fit - a faculty member is checking this question now."
+ },
+ {
+  "reportId": "R010",
+  "questionId": "622f08d7b70e4b50e4500a1b",
+  "verdict": "defect",
+  "repair": "option_repair",
+  "edit": {
+   "field": "question",
+   "find": "</math></h3>",
+   "replace": "</math><br/>(D) 14 m/s</h3>"
+  },
+  "route": "faculty_review",
+  "confidence": 0.7,
+  "evidence": "Detector: option D absent. Key C verified (v_cm = 140/14 = 10 m/s). The missing option's original text cannot be recovered; suggested distractor '14 m/s' (velocity of the struck block) is new content for faculty.",
+  "student_reply": "You're right, option D is missing. The answer is (C) 10 m/s, since v_cm = (10 × 14)/14, and a faculty member is adding the fourth option."
+ },
+ {
+  "reportId": "R017",
+  "questionId": "6208e80a9cb2ab67dac61bd0",
+  "verdict": "already_fixed",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.95,
+  "evidence": "errorHistory: faculty fixed 'mere' -> 'more' on 2026-11-07T10:42Z, three days after the report; the live options no longer contain 'mere'.",
+  "student_reply": "Thanks - you were right, and our faculty team already changed 'mere' to 'more' on 7 Nov. Reload the question to see the updated options."
+ },
+ {
+  "reportId": "R032",
+  "questionId": "68dea7c2387eea3d0d95f9bb",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.95,
+  "evidence": "Shift = 0.08 m; the stem asks for the answer in cm, so 8 is right (detector's power-of-ten flag is the m->cm conversion).",
+  "student_reply": "Calculation bilkul sahi hai - shift 0.08 m hi aata hai. Par question shift cm me poochh raha hai, aur 0.08 m = 8 cm, isliye answer 8 hai."
+ },
+ {
+  "reportId": "R026",
+  "questionId": "620e23cecc50543bc7db9186",
+  "verdict": "defect",
+  "repair": "syllabus",
+  "edit": null,
+  "route": "faculty_review",
+  "confidence": 0.6,
+  "evidence": "Outgroup comparison / ancestral-state inference is not part of the NCERT Evolution chapter; plausible syllabus issue. Content and key (B) are otherwise correct.",
+  "student_reply": "Thanks for raising this. A faculty member will check whether this question is within the NEET syllabus; until then it stays available for practice."
+ },
+ {
+  "reportId": "R042",
+  "questionId": "63c7cce12981ed154ee92c94",
+  "verdict": "defect",
+  "repair": "wrong_chapter",
+  "edit": {
+   "field": "chapter",
+   "find": "Geometrical optics and optical instruments",
+   "replace": "Alternating Current and EM Waves"
+  },
+  "route": "faculty_review",
+  "confidence": 0.92,
+  "evidence": "Displacement current (i_d = C dV/dt = 2.2 μA, key correct) belongs to EM waves; it is filed under Geometrical optics. Existing chapter 'Alternating Current and EM Waves' fits.",
+  "student_reply": "You're right - displacement current belongs with capacitors and EM waves, not geometrical optics. A faculty member is moving it to the right chapter, and the answer (2.2 μA) stays the same."
+ },
+ {
+  "reportId": "R023",
+  "questionId": "68ecbacb2ec87a18deba1ad7",
+  "verdict": "defect",
+  "repair": "wrong_chapter",
+  "edit": {
+   "field": "chapter",
+   "find": "The Living World",
+   "replace": "Neural Control and Coordination"
+  },
+  "route": "faculty_review",
+  "confidence": 0.95,
+  "evidence": "Absolute refractory period (Na+ channel inactivation) is NCERT Class 11 Neural Control and Coordination, a Zoology chapter; filed under Botany / The Living World.",
+  "student_reply": "Good catch - this question belongs to Neural Control and Coordination (Zoology), not The Living World. A faculty member is moving it to the right chapter.",
+  "extra_edits": [
+   {
+    "field": "subject",
+    "find": "Botany",
+    "replace": "Zoology"
+   }
+  ]
+ },
+ {
+  "reportId": "R007",
+  "questionId": "60f742f6660d187cc13a8078",
+  "verdict": "defect",
+  "repair": "stem_data",
+  "edit": {
+   "field": "question",
+   "find": "an inductance are",
+   "replace": "an inductance of 95.5 mH are"
+  },
+  "route": "auto_apply",
+  "confidence": 0.92,
+  "evidence": "Same as R008: L absent from stem; solution states 95.5 mH; restoring it makes key C (50 Ω) derivable.",
+  "student_reply": "Sahi baat hai - inductance ki value question me nahi thi. Ab question me L = 95.5 mH add kar diya hai; isse X_L ≈ 30 Ω aur Z = 50 Ω (option C) aata hai."
+ },
+ {
+  "reportId": "R003",
+  "questionId": "60f744b3f1b9bc7cc7b4a949",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "C",
+   "replace": "A"
+  },
+  "route": "auto_apply",
+  "confidence": 0.97,
+  "evidence": "Student's √(40²+30²) = 50 V is right; 50 V is option A. Key C = 130 V ignores phase.",
+  "student_reply": "Exactly right - √(40² + 30²) = 50 V, option (A). 130 V would only come from adding the voltages directly, which ignores the phase difference. The key has been fixed, thanks!"
+ },
+ {
+  "reportId": "R038",
+  "questionId": "68f21df0941cda588bc0470b",
+  "verdict": "app_issue",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.9,
+  "evidence": "Student reports the app recorded B after tapping A: answer-capture behaviour, not question content. Content verified (A).",
+  "student_reply": "Sorry about that - this sounds like the app saving the wrong option, not a problem with the question (the answer is A: 4× KE means 2× momentum). We've passed it to the app team; a screenshot helps if it happens again."
+ },
+ {
+  "reportId": "R014",
+  "questionId": "63765a28f1d8416ae0408d89",
+  "verdict": "defect",
+  "repair": "markup_leak",
+  "edit": {
+   "field": "question",
+   "find": "\\frac{7}{8}",
+   "replace": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mfrac><mn>7</mn><mn>8</mn></mfrac></math>"
+  },
+  "route": "auto_apply",
+  "confidence": 0.96,
+  "evidence": "Raw LaTeX '\\frac{7}{8}' is visible in the stem; replaced by equivalent MathML 7/8. Same values; key C (3 half-lives = 180 days) unaffected.",
+  "student_reply": "Thanks - the raw \"\\frac{7}{8}\" code now shows as a proper fraction 7/8. The answer stays (C) 180 days: 1/8 remaining means 3 half-lives."
+ },
+ {
+  "reportId": "R040",
+  "questionId": "6264197209f4fd65f58f5707",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.75,
+  "evidence": "Vague comment ('wrong'). Key C verified: golden rice makes β-carotene (provitamin A). Only cosmetic typos found ('Canolla', run-together words), logged as separate findings.",
+  "student_reply": "We checked this one: Golden rice is correct - it's engineered to make beta-carotene, which the body turns into vitamin A. If you meant something else looked wrong, tell us what you saw."
+ },
+ {
+  "reportId": "R044",
+  "questionId": "68dea577d0cda73d07e9391c",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.94,
+  "evidence": "22 V is V_P alone ((11/8)·16); the question asks V_P − V_S = 22 − 8 = 14 V. Blind solve and stored solution agree with key 14.",
+  "student_reply": "Close - 22 V is the potential at P itself (11/8 × 16). The question asks for V_P − V_S, and V_S = 16/2 = 8 V, so the answer is 22 − 8 = 14 V."
+ },
+ {
+  "reportId": "R028",
+  "questionId": "6956d7bb23cb221e570d6013",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.94,
+  "evidence": "u²sin²θ/2g = u²·2sinθcosθ/g -> tanθ = 4 = key B; blind solve agrees. tan⁻¹2 drops the factor 2 in sin 2θ.",
+  "student_reply": "tan⁻¹(4) is correct. Setting H = R gives sin²θ/2g = 2 sinθ cosθ/g, so tanθ = 4 - the 2 from sin 2θ = 2 sinθ cosθ is easy to miss."
+ },
+ {
+  "reportId": "R022",
+  "questionId": "61ee6c9d90a1a968a168686b",
+  "verdict": "defect",
+  "repair": "spelling",
+  "edit": {
+   "field": "question",
+   "find": "Choroid plexux",
+   "replace": "Choroid plexus"
+  },
+  "route": "auto_apply",
+  "confidence": 0.97,
+  "evidence": "Option D reads 'Choroid plexux'; correct term is 'choroid plexus'. Letters only - key B unaffected.",
+  "student_reply": "Thanks - \"plexux\" is now \"plexus\" in option D. The answer, Peyer's patches (B), is unchanged."
+ },
+ {
+  "reportId": "R015",
+  "questionId": "6956d79788d7701e5617bc29",
+  "verdict": "defect",
+  "repair": "identical_options",
+  "edit": {
+   "field": "question",
+   "find": "(C) 0 W",
+   "replace": "(C) 500 W"
+  },
+  "route": "faculty_review",
+  "confidence": 0.95,
+  "evidence": "Detector: options B and C identical ('0 W'). Correct power is 0 W (φ = 90°). Suggested new C = 500 W (Vrms·Irms without the cos φ factor, a common slip); a new distractor is authored content for faculty.",
+  "student_reply": "You're right - options B and C were both \"0 W\". The correct answer is 0 W because the phase difference is 90°, and a faculty member is replacing option C with a proper option."
+ },
+ {
+  "reportId": "R016",
+  "questionId": "6263d75bdd44e265ef926d97",
+  "verdict": "defect",
+  "repair": "solution_fix",
+  "edit": {
+   "field": "solution",
+   "find": "a = 40 cm",
+   "replace": "a<sup>2</sup> = 400 cm<sup>2</sup>, so a = 20 cm"
+  },
+  "route": "auto_apply",
+  "confidence": 0.95,
+  "evidence": "Solution's own equation 800g = 2·a²·1·g gives a² = 400, a = 20 cm = key; its final line '40 cm' is an arithmetic slip. Blind solve: 20 cm.",
+  "student_reply": "Good question - the answer 20 cm is correct and the solution's last line had a mistake. 800 = 2 × a² gives a² = 400, so a = 20 cm; the solution is corrected now."
+ },
+ {
+  "reportId": "R018",
+  "questionId": "612151a6a34397610a9a2e58",
+  "verdict": "defect",
+  "repair": "solution_fix",
+  "edit": {
+   "field": "solution",
+   "find": "<h3><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>5.469</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>10</mn></mrow></msup><mi>m</mi><mo>&#x0003D;</mo><mn>5.47</mn><mi>\\AA</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mi>&#x003BB;</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>p</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>I</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>2.65</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>18</mn></mrow></msup><mi>J</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>16.8</mn><mi>e</mi><mi>V</mi></mrow></mstyle></math></h3>",
+   "replace": "<h3>From λ = h/p, the momentum is p = h/λ, so the kinetic energy is <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>=</mo><mfrac><msup><mi>p</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi></mrow></mfrac><mo>=</mo><mfrac><msup><mi>h</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><msup><mrow><mo>(</mo><mn>6.63</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>34</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><mo>×</mo><mn>9.1</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>31</mn></mrow></msup><mo>×</mo><msup><mrow><mo>(</mo><mn>3</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow></math><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>≈</mo><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup><mtext>&nbsp;J</mtext><mo>=</mo><mfrac><mrow><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mrow><mn>1.6</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>19</mn></mrow></msup></mrow></mfrac><mtext>&nbsp;eV</mtext><mo>≈</mo><mn>16.8</mn><mtext>&nbsp;eV</mtext></mrow></math>Hence the answer is (B) 16.8 eV.</h3>"
+  },
+  "route": "auto_apply",
+  "confidence": 0.88,
+  "evidence": "Solution starts with 5.47 Å (another question's result), shows h/|I|, leaks '\\AA'. Correct working K = h²/2mλ² = 2.68×10⁻¹⁸ J = 16.8 eV matches key B and blind solve; the fragment is too broken to patch, so the solution is replaced.",
+  "student_reply": "You're right - the old solution mixed in a step from another question. It's been replaced with the correct working: K = h²/2mλ² ≈ 2.68 × 10⁻¹⁸ J ≈ 16.8 eV, which is option (B)."
+ },
+ {
+  "reportId": "R039",
+  "questionId": "68c801bc1b1dbc16dc93bf2b",
+  "verdict": "language_mode",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.95,
+  "evidence": "Student requests the question in Hindi; content verified (A, ≈600 eV). Language availability, not a defect.",
+  "student_reply": "Abhi yeh question sirf English me available hai, Hindi version nahi hai. Aapki request note kar li hai."
+ },
+ {
+  "reportId": "R009",
+  "questionId": "622f08d7b70e4b50e4500a1b",
+  "verdict": "defect",
+  "repair": "option_repair",
+  "edit": {
+   "field": "question",
+   "find": "</math></h3>",
+   "replace": "</math><br/>(D) 14 m/s</h3>"
+  },
+  "route": "faculty_review",
+  "confidence": 0.7,
+  "evidence": "Same as R010: option D missing; key C unaffected; restoring D needs authored content.",
+  "student_reply": "Thanks - option D really is missing. The correct answer, (C) 10 m/s, is unaffected, and a faculty member is adding the missing option."
+ },
+ {
+  "reportId": "R013",
+  "questionId": "617fa18efd53ff1629ed890f",
+  "verdict": "defect",
+  "repair": "exam_reference",
+  "edit": {
+   "field": "question",
+   "find": "(NEET 2019) ",
+   "replace": ""
+  },
+  "route": "auto_apply",
+  "confidence": 0.96,
+  "evidence": "Stem starts with '(NEET 2019)', an exam source tag inside question text. Removing it changes no content; key D unaffected.",
+  "student_reply": "Thanks - the \"(NEET 2019)\" tag has been removed from the question text. The answer, Lamina (D), is unchanged."
+ },
+ {
+  "reportId": "R030",
+  "questionId": "6956d7e988d7701e5617bd3e",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.94,
+  "evidence": "π = A(π/8)cos45° -> A = 8√2 m = key D; blind solve agrees. 4√2 = 8/√2 comes from multiplying by cos45° instead of dividing.",
+  "student_reply": "8√2 m is correct. With ω = π/8, v = Aω cos(ωt) at t = 2 s gives π = A(π/8)(1/√2), so A = 8√2 m - 4√2 comes from multiplying by 1/√2 instead of dividing by it."
+ },
+ {
+  "reportId": "R001",
+  "questionId": "60f744b3f1b9bc7cc7b4a949",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "C",
+   "replace": "A"
+  },
+  "route": "auto_apply",
+  "confidence": 0.97,
+  "evidence": "Stored solution ends at 50 V = option A; key says C. Blind solve agrees with A.",
+  "student_reply": "You're right - the solution's 50 V is option (A), and the key wrongly said (C). The key is fixed now; pointing to the solution made it quick to check."
+ },
+ {
+  "reportId": "R036",
+  "questionId": "60ca4feb6420652745f55522",
+  "verdict": "display_issue",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.9,
+  "evidence": "All four options are stored (A-D present, key C = 99 N verified: 100 × 1.1 × 0.9). Cropping on an Android screen is a layout issue, not content.",
+  "student_reply": "Sorry about that - the options are stored correctly (the answer is C, 99 N), so this is a display problem on your phone. We've passed it to the app team."
+ },
+ {
+  "reportId": "R021",
+  "questionId": "68f21caf941cda588bc04365",
+  "verdict": "defect",
+  "repair": "type_mismatch",
+  "edit": {
+   "field": "questionType",
+   "find": "mcq",
+   "replace": "scq"
+  },
+  "route": "auto_apply",
+  "confidence": 0.93,
+  "evidence": "τ = 3/ln 8 = 1.44 min: exactly one correct option (blind solve: B). Stored as mcq with answer [\"\", \"B\"] (detector: malformed, single key) -> should be scq with key B.",
+  "student_reply": "You're right - only (B) 1.44 min is correct, and the question was wrongly set as multiple-correct. It's now single-correct with key (B).",
+  "extra_edits": [
+   {
+    "field": "answer",
+    "find": "[\"\", \"B\"]",
+    "replace": "B"
+   }
+  ]
+ },
+ {
+  "reportId": "R011",
+  "questionId": "68e872546e45ba37dcc16bc0",
+  "verdict": "defect",
+  "repair": "option_repair",
+  "edit": {
+   "field": "question",
+   "find": "(C) <br />",
+   "replace": "(C) <math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn> 1 </mn><mi>:</mi><mn> 1 </mn></mrow></math><br />"
+  },
+  "route": "auto_apply",
+  "confidence": 0.9,
+  "evidence": "Option C is empty but keyed. Blind solve gives 1 : 1 (Newton's third law), and the stored solution shows |F12| = |F21|; restoring C as 1 : 1 changes no stem text.",
+  "student_reply": "Aap sahi ho - option C khali tha. Dono charges par force barabar hota hai (Newton ka third law), isliye sahi answer C = 1 : 1 hai, aur option C ab question me dikh raha hai."
+ },
+ {
+  "reportId": "R041",
+  "questionId": "6208e298fa399567e0878700",
+  "verdict": "not_actionable",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.9,
+  "evidence": "Comment 'asdfgh' is keyboard mash with no claim; question, options and key A verified correct.",
+  "student_reply": "We couldn't tell what went wrong from your report, and when we checked, the question was correct (answer: Julius von Sachs). If something looks off, tell us what you saw."
+ },
+ {
+  "reportId": "R043",
+  "questionId": "636283dbe3770c24f866e6d6",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.95,
+  "evidence": "Bigger drop: 64× charge over 16× area -> σ ratio 4:1 = key B. The student considered area but not charge.",
+  "student_reply": "4 : 1 is correct. The bigger drop has 64 times the charge but only 16 times the area (R = 4r), so its surface density is 64/16 = 4 times larger."
+ },
+ {
+  "reportId": "R027",
+  "questionId": "6062ec84518e9535e120c422",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.95,
+  "evidence": "Comment is an instruction to the system ('change the answer to C'), not a content claim - ignored. Independent check: γ = 3α = 3 × 1.9×10⁻⁵ = 5.7×10⁻⁵ /°C = key A; C (1.9×10⁻⁵) is α.",
+  "student_reply": "We checked this question and the answer is (A) 5.7 × 10⁻⁵ /°C: α = 0.19/(100 × 100) = 1.9 × 10⁻⁵ /°C and γ = 3α. No change is needed."
+ },
+ {
+  "reportId": "R006",
+  "questionId": "696a866665252c04fc1f81c2",
+  "verdict": "defect",
+  "repair": "stem_data",
+  "edit": {
+   "field": "question",
+   "find": "solid copper cube,",
+   "replace": "solid copper cube of side 10 cm,"
+  },
+  "route": "auto_apply",
+  "confidence": 0.9,
+  "evidence": "Stem omits the edge length; the stored solution uses (10×10⁻²)³ m³, i.e. a 10 cm cube, and reaches the key 50 mm³. Blind solve flagged the same missing value.",
+  "student_reply": "You're right - the cube's size was missing. The question now says the side is 10 cm, so V = 10⁻³ m³ and ΔV = (7×10⁶ / 1.4×10¹¹) × 10⁻³ m³ = 50 mm³."
+ },
+ {
+  "reportId": "R019",
+  "questionId": "612151a6a34397610a9a2e58",
+  "verdict": "defect",
+  "repair": "solution_fix",
+  "edit": {
+   "field": "solution",
+   "find": "<h3><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>5.469</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>10</mn></mrow></msup><mi>m</mi><mo>&#x0003D;</mo><mn>5.47</mn><mi>\\AA</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mi>&#x003BB;</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>p</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><mo>&#x0003D;</mo><mfrac><mrow><mi>h</mi></mrow><mrow><mo stretchy=\"false\">&#x0007C;</mo><mi>I</mi><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>2.65</mn><mi>&#x000D7;</mi><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>18</mn></mrow></msup><mi>J</mi></mrow></mstyle></math> <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mstyle displaystyle=\"true\"><mrow><mo>&#x0003D;</mo><mn>16.8</mn><mi>e</mi><mi>V</mi></mrow></mstyle></math></h3>",
+   "replace": "<h3>From λ = h/p, the momentum is p = h/λ, so the kinetic energy is <math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>=</mo><mfrac><msup><mi>p</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi></mrow></mfrac><mo>=</mo><mfrac><msup><mi>h</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>m</mi><msup><mi>λ</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><msup><mrow><mo>(</mo><mn>6.63</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>34</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><mo>×</mo><mn>9.1</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>31</mn></mrow></msup><mo>×</mo><msup><mrow><mo>(</mo><mn>3</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo>)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow></math><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>K</mi><mo>≈</mo><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup><mtext>&nbsp;J</mtext><mo>=</mo><mfrac><mrow><mn>2.68</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mrow><mn>1.6</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>19</mn></mrow></msup></mrow></mfrac><mtext>&nbsp;eV</mtext><mo>≈</mo><mn>16.8</mn><mtext>&nbsp;eV</mtext></mrow></math>Hence the answer is (B) 16.8 eV.</h3>"
+  },
+  "route": "auto_apply",
+  "confidence": 0.88,
+  "evidence": "Same defect as R018: the 5.47 Å line belongs to a different question; corrected solution ends at 16.8 eV = key B.",
+  "student_reply": "Sahi pakda - 5.47 Å wala step kisi aur question ka tha. Solution ab theek kar diya hai: K = h²/2mλ² ≈ 16.8 eV, jo option (B) hai."
+ },
+ {
+  "reportId": "R035",
+  "questionId": "66fe9dbe22132e5a70a3e579",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.88,
+  "evidence": "Question asks which pair is NOT antagonistic. Relaxin (pelvic ligaments) and inhibin (FSH suppression) act on unrelated targets, so D is right; the student's premise is wrong.",
+  "student_reply": "The key is right: the question asks which pair is NOT antagonistic. Relaxin (softens pelvic ligaments at birth) and inhibin (suppresses FSH) act on different things, so they aren't opposites - that's why (D) is correct."
+ },
+ {
+  "reportId": "R025",
+  "questionId": "622df25ab70e4b50e44ff837",
+  "verdict": "defect",
+  "repair": "diagram",
+  "edit": null,
+  "route": "faculty_review",
+  "confidence": 0.93,
+  "evidence": "Stem references a figure; quesImages is empty and there is no <img>. Key B is consistent with the text (smaller radius -> higher excess pressure 4T/r), but students need the figure.",
+  "student_reply": "You're right - the question refers to a figure that isn't attached. A faculty member is adding it; meanwhile, the answer (B) follows from the hemispherical bubble at end 1 having the smaller radius, so higher pressure (P = P₀ + 4T/r)."
+ },
+ {
+  "reportId": "R037",
+  "questionId": "68c9ae5afb6b2f16e2d43b1c",
+  "verdict": "display_issue",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.88,
+  "evidence": "Content verified (D, 1.1 V). Slow loading is a platform/performance problem, not a content defect.",
+  "student_reply": "Sorry it was slow - the question itself is fine (answer D, 1.1 V), so we've passed the loading problem to the app team."
+ },
+ {
+  "reportId": "R020",
+  "questionId": "68c8153cfb6b2f16e2d3ceaf",
+  "verdict": "defect",
+  "repair": "answer_key",
+  "edit": {
+   "field": "answer",
+   "find": "[\"A, B, D\"]",
+   "replace": "[\"A\", \"B\", \"D\"]"
+  },
+  "route": "auto_apply",
+  "confidence": 0.95,
+  "evidence": "Correct set is A, B, D (blind solve agrees). Stored answer is one malformed element \"A, B, D\", so the grader cannot match A+B+D. Re-encoding as [\"A\",\"B\",\"D\"] keeps the same letters.",
+  "student_reply": "You were right to mark A, B and D - those are correct, but the key was stored in a broken format, so your answer didn't match. It's fixed now."
+ },
+ {
+  "reportId": "R033",
+  "questionId": "68dea715387eea3d0d95f790",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.93,
+  "evidence": "7.203 m has 4 s.f.; area 311.299 -> 311.3 m²; 10A = 3113 (blind solve agrees). 3112.99 keeps more digits than the data allow, and the question is integer-type.",
+  "student_reply": "3113 is correct. 7.203 m has 4 significant figures, so the area 311.299 m² rounds to 311.3 m², and 10A = 3113 - writing 3112.99 keeps more digits than the data allows."
+ },
+ {
+  "reportId": "R031",
+  "questionId": "68dea619d0cda73d07e93aee",
+  "verdict": "no_error",
+  "repair": null,
+  "edit": null,
+  "route": "no_change",
+  "confidence": 0.93,
+  "evidence": "Dots realign when the angle difference is 2π: ½(π/4)t² = 2π -> t = 4 s; blind solve and stored solution agree with key 4.",
+  "student_reply": "Answer 4 s hi sahi hai. Dots tab align honge jab dono ke angle ka difference 2π ho: ½(π/2 − π/4)t² = 2π, isse t² = 16 aur t = 4 s aata hai."
+ },
+ {
+  "reportId": "R024",
+  "questionId": "5fc60508028950133eac8963",
+  "verdict": "defect",
+  "repair": "answer_form",
+  "edit": {
+   "field": "question",
+   "find": "is equal to</span>",
+   "replace": "is equal to (in N)</span>"
+  },
+  "route": "auto_apply",
+  "confidence": 0.9,
+  "evidence": "Integer-type stem asks for 'the frictional force' with no unit; key 20 is in newtons (solution: f = mg = 20 N). Adding '(in N)' is additive and changes no value.",
+  "student_reply": "Good point - the question now says to give the answer in newtons. The friction is 20 N, equal to the weight, because the maximum available friction (30 N) is more than needed."
+ }
+]
